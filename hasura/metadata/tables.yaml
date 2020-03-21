@@ -1,0 +1,240 @@
+- table:
+    schema: public
+    name: data
+  object_relationships:
+  - name: location
+    using:
+      foreign_key_constraint_on: location_id
+- table:
+    schema: public
+    name: data_type
+  is_enum: true
+- table:
+    schema: public
+    name: location
+  array_relationships:
+  - name: data
+    using:
+      foreign_key_constraint_on:
+        column: location_id
+        table:
+          schema: public
+          name: data
+- table:
+    schema: public
+    name: users
+- table:
+    schema: qberry
+    name: answers
+  object_relationships:
+  - name: option
+    using:
+      foreign_key_constraint_on: option_id
+  - name: quiz
+    using:
+      foreign_key_constraint_on: quiz_id
+  insert_permissions:
+  - role: user
+    permission:
+      check:
+        _and:
+        - user_id:
+            _eq: X-Hasura-User-Id
+        - quiz:
+            start_at:
+              _lte: now()
+        - quiz:
+            end_at:
+              _gte: now()
+      set:
+        user_id: x-hasura-user-id
+      columns:
+      - option_id
+      - question_id
+      - quiz_id
+- table:
+    schema: qberry
+    name: options
+  object_relationships:
+  - name: question
+    using:
+      foreign_key_constraint_on: question_id
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - id
+      - text
+      filter:
+        _and:
+        - question:
+            quiz:
+              start_at:
+                _lte: now()
+        - question:
+            quiz:
+              end_at:
+                _gte: now()
+- table:
+    schema: qberry
+    name: questions
+  object_relationships:
+  - name: quiz
+    using:
+      foreign_key_constraint_on: quiz_id
+  array_relationships:
+  - name: options
+    using:
+      foreign_key_constraint_on:
+        column: question_id
+        table:
+          schema: qberry
+          name: options
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - id
+      - quiz_id
+      - text
+      filter:
+        _and:
+        - quiz:
+            start_at:
+              _lte: now()
+        - quiz:
+            end_at:
+              _gte: now()
+      limit: 5
+- table:
+    schema: qberry
+    name: quiz
+  array_relationships:
+  - name: questions
+    using:
+      foreign_key_constraint_on:
+        column: quiz_id
+        table:
+          schema: qberry
+          name: questions
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - id
+      - name
+      filter:
+        _and:
+        - start_at:
+            _lte: now()
+        - end_at:
+            _gte: now()
+      limit: 1
+- table:
+    schema: qberry
+    name: scores
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - quiz_id
+      - user_id
+      - score
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+- table:
+    schema: qberry
+    name: session_questions
+  object_relationships:
+  - name: question
+    using:
+      foreign_key_constraint_on: question_id
+  - name: quiz
+    using:
+      foreign_key_constraint_on: quiz_id
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - question_id
+      - user_id
+      - quiz_id
+      filter:
+        _and:
+        - user_id:
+            _eq: X-Hasura-User-Id
+        - quiz:
+            start_at:
+              _lte: now()
+        - quiz:
+            end_at:
+              _gte: now()
+- table:
+    schema: qberry
+    name: sessions
+  object_relationships:
+  - name: quiz
+    using:
+      foreign_key_constraint_on: quiz_id
+  - name: user
+    using:
+      foreign_key_constraint_on: user_id
+  array_relationships:
+  - name: questions
+    using:
+      manual_configuration:
+        remote_table:
+          schema: qberry
+          name: session_questions
+        column_mapping:
+          quiz_id: quiz_id
+          user_id: user_id
+  insert_permissions:
+  - role: user
+    permission:
+      check:
+        _and:
+        - user_id:
+            _eq: X-Hasura-User-Id
+        - quiz:
+            start_at:
+              _lte: now()
+        - quiz:
+            end_at:
+              _gte: now()
+      set:
+        user_id: x-hasura-user-id
+      columns:
+      - quiz_id
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - created_at
+      - quiz_id
+      - user_id
+      filter:
+        _and:
+        - user_id:
+            _eq: X-Hasura-User-Id
+        - quiz:
+            start_at:
+              _lte: now()
+        - quiz:
+            end_at:
+              _gte: now()
+- table:
+    schema: qberry
+    name: users
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - id
+      - mobile
+      - name
+      - created_at
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
