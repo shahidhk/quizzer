@@ -1,5 +1,5 @@
 version: 2
-endpoint: https://hasura.shahidh.in
+endpoint: http://localhost:8080
 migrations_directory: migrations
 metadata_directory: metadata
 actions:
