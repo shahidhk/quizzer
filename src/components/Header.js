@@ -1,8 +1,8 @@
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import logo from '../logo.svg';
 import { useAuth0 } from "../react-auth0-spa";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
@@ -18,10 +18,12 @@ const Header = () => {
             <button onClick={() => loginWithRedirect({})}>Log in</button>
           )}
           {isAuthenticated && <button onClick={() => logout()}>Log out</button>}
-          {/* <Nav.Link href="#deets">More deets</Nav.Link>
-          <Nav.Link eventKey={2} href="#memes">
-            Dank memes
-          </Nav.Link> */}
+          {isAuthenticated && (
+            <span>
+              <Link to="/">Home</Link>&nbsp;
+              <Link to="/profile">Profile</Link>
+            </span>
+          )}
         </Nav>
       </Navbar.Collapse>
     </Navbar>
