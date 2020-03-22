@@ -2,40 +2,73 @@ import React from 'react';
 import './App.css';
 import Header from './components/Header';
 import Home from './components/Home';
-import Login from './components/Login';
-import Question from './components/Question';
+import Quiz from './components/Quiz';
 import Success from './components/Success';
 import Failure from './components/Failure';
 import { useAuth0 } from "./react-auth0-spa";
 
 import { Router, Route, Switch } from "react-router-dom";
+import PrivateRoute from "./components/PrivateRoute";
 import Profile from "./components/Profile";
 import history from "./utils/history";
 
-function App() {
-  const { loading } = useAuth0();
+import ApolloClient from 'apollo-client';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { createHttpLink } from 'apollo-link-http';
+import { setContext } from 'apollo-link-context';
+import { ApolloProvider } from '@apollo/react-hooks';
+
+
+const App = () => {
+  const { loading, getTokenSilently } = useAuth0();
 
   if (loading) {
     return <div>Loading...</div>;
   }
 
-  return (
-    <div className="App">
-      {/* Don't forget to include the history module */}
-      <Router history={history}>
-        <header>
-          <Header />
-        </header>
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/profile" component={Profile} />
-          <Route path="/question" component={Question} />
-          <Route path="/success" component={Success} />
-          <Route path="/failure" component={Failure} />
-        </Switch>
-      </Router>
+  const authLink = setContext(async (_, { headers }) => {
+    // get the authentication token from local storage if it exists
+    const token = await getTokenSilently();
+    // return the headers to the context so httpLink can read them
+    return {
+      headers: {
+        ...headers,
+        authorization: token ? `Bearer ${token}` : "",
+      }
+    }
+  });
 
-    </div>
+  const httpLink = createHttpLink({
+    uri: 'https://hasura.shahidh.in/v1/graphql'
+  })
+
+  const createApolloClient = () => {
+    return new ApolloClient({
+      link: authLink.concat(httpLink),
+      cache: new InMemoryCache(),
+    });
+  };
+
+  const client = createApolloClient();
+
+  return (
+    <ApolloProvider client={client}>
+      <div className="App">
+        {/* Don't forget to include the history module */}
+        <Router history={history}>
+          <header>
+            <Header />
+          </header>
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <PrivateRoute path="/profile" component={Profile} />
+            <PrivateRoute path="/quiz/:quizId" component={Quiz} />
+            <PrivateRoute path="/success" component={Success} />
+            <PrivateRoute path="/failure" component={Failure} />
+          </Switch>
+        </Router>
+      </div>
+    </ApolloProvider>
   );
 }
 

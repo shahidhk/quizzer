@@ -35,7 +35,7 @@ const Header = () => {
             </>
           )}
           {!isAuthenticated && (
-            <Button onClick={() => loginWithRedirect({})} variant="outline-light">Log In</Button>
+            <Button onClick={() => loginWithRedirect({})}>Log In</Button>
           )}
           {isAuthenticated && <Button onClick={() => logout()}>Log out</Button>}
         </Nav>
