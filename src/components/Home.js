@@ -82,28 +82,20 @@ const START_QUIZ = gql`mutation startQuiz($quiz_id: uuid!) {
     quiz_id: $quiz_id
   }) {
     affected_rows
-    returning {
-      questions {
-        question {
-          id
-          text
-          options {
-            id
-            text
-          }
-        }
-      }
-    }
   }
 }`;
 
 const StartQuizButton = ({ quizId }) => {
   const history = useHistory()
 
-  const [ startQuiz, { loading, error, data } ] = useMutation(START_QUIZ, {
-    onCompleted: () => {
+  const [ startQuiz, { loading, error } ] = useMutation(START_QUIZ, {
+    onCompleted: (data) => {
       console.log('mutation completed');
-      history.push(`/quiz/${quizId}`)
+      if (data && data.quiz && data.quiz.affected_rows > 0) {
+        history.push(`/quiz/${quizId}`)
+      } else {
+        console.log('unknown error', data);
+      }
     },
     onError: (error) => {
       console.error(error);
