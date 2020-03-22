@@ -27,6 +27,25 @@
 .App-link {
   color: #61dafb;
 }
+.p-l-5{
+  padding-left: 5em;
+}
+.m-t-1{
+  margin-top: 1em;
+}
+.bold{
+  font-weight: bold;
+}
+/* colors */
+.blue {
+  color: #2e368d;
+}
+.gold{
+  color: #F0BA52;
+}
+.red{
+  color: red;
+}
 
 @keyframes App-logo-spin {
   from {
@@ -36,13 +55,39 @@
     transform: rotate(360deg);
   }
 }
+.fullHeight{
+  padding: 5%;
+}
 
 .customCenter {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
+.image {
+  width: 100%;
+}
+.imageWin{
+  width: 20%;
+}
+.imageFail{
+  width: 20%;
+}
 .fullHeight {
   height: 90vh;
+}
+.contentContainer {
+  display: block;
+}
+
+
+/* Quetions */
+.alLeft{
+  text-align: center;
+}
+.radioAtt{
+  margin-top: 5px;
+  font-size: large;
+  text-align: justify;
+  justify-content: center;
 }

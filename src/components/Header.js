@@ -1,8 +1,9 @@
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
+import Button from 'react-bootstrap/Button';
 import { useAuth0 } from "../react-auth0-spa";
-import { Link } from "react-router-dom";
+import { LinkContainer } from "react-router-bootstrap";
 
 const Header = () => {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
@@ -14,16 +15,29 @@ const Header = () => {
         <Nav className="mr-auto">
         </Nav>
         <Nav>
-          {!isAuthenticated && (
-            <button onClick={() => loginWithRedirect({})}>Log in</button>
-          )}
-          {isAuthenticated && <button onClick={() => logout()}>Log out</button>}
           {isAuthenticated && (
-            <span>
-              <Link to="/">Home</Link>&nbsp;
-              <Link to="/profile">Profile</Link>
-            </span>
+            <>
+              <LinkContainer to="/">
+                <Nav.Link>Home</Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/profile">
+                <Nav.Link>Profile</Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/question">
+                <Nav.Link>Question</Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/success">
+                <Nav.Link>Success</Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/failure">
+                <Nav.Link>Failure</Nav.Link>
+              </LinkContainer>
+            </>
           )}
+          {!isAuthenticated && (
+            <Button onClick={() => loginWithRedirect({})} variant="outline-light">Log In</Button>
+          )}
+          {isAuthenticated && <Button onClick={() => logout()}>Log out</Button>}
         </Nav>
       </Navbar.Collapse>
     </Navbar>
