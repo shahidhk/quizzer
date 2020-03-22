@@ -9,7 +9,7 @@ import Button from 'react-bootstrap/Button';
 
 const Home = () => (
   <Container fluid >
-    <Row  className="customCenter" className="fullHeight">
+    <Row  className="customCenter fullHeight">
       <Col xs={8} className="customCenter">
         <Image src={qberry} rounded />
       </Col >

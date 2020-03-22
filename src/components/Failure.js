@@ -6,17 +6,17 @@ import Image from 'react-bootstrap/Image';
 import qberry from '../images/qberry.png';
 import '../App.css';
 
-const Login = () => (
+const Failure = () => (
   <Container fluid >
     <Row  className="customCenter fullHeight">
       <Col xs={6} className="customCenter">
         <Image src={qberry} rounded />
       </Col >
       <Col className="customCenter">
-        Login
+        Failure
       </Col>
     </Row>
   </Container>
 )
 
-export default Login;
+export default Failure;
