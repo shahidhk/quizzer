@@ -1,0 +1,5 @@
+{
+	"env": {
+		"SMS_JWT_SECRET": "@qberry_sms_jwt_secret"
+	}
+}
