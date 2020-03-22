@@ -1,7 +1,7 @@
 CREATE SCHEMA qberry;
 CREATE TABLE qberry.answers (
     id uuid DEFAULT public.gen_random_uuid() NOT NULL,
-    user_id uuid NOT NULL,
+    user_id text NOT NULL,
     created_at timestamp with time zone DEFAULT now() NOT NULL,
     quiz_id uuid NOT NULL,
     question_id uuid NOT NULL,
@@ -37,21 +37,21 @@ CREATE TABLE qberry.questions (
 );
 CREATE TABLE qberry.scores (
     quiz_id uuid NOT NULL,
-    user_id uuid NOT NULL,
+    user_id text NOT NULL,
     score integer NOT NULL
 );
 CREATE TABLE qberry.session_questions (
     question_id uuid NOT NULL,
-    user_id uuid NOT NULL,
+    user_id text NOT NULL,
     quiz_id uuid NOT NULL
 );
 CREATE TABLE qberry.sessions (
     created_at timestamp with time zone DEFAULT now() NOT NULL,
-    user_id uuid NOT NULL,
+    user_id text NOT NULL,
     quiz_id uuid NOT NULL
 );
 CREATE TABLE qberry.users (
-    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    id text NOT NULL,
     mobile character varying,
     name text,
     created_at timestamp with time zone DEFAULT now() NOT NULL,
