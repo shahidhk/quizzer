@@ -2,6 +2,14 @@
     schema: qberry
     name: answers
   object_relationships:
+  - name: live_quiz
+    using:
+      manual_configuration:
+        remote_table:
+          schema: qberry
+          name: live_quiz
+        column_mapping:
+          quiz_id: id
   - name: option
     using:
       foreign_key_constraint_on: option_id
@@ -15,18 +23,16 @@
         _and:
         - user_id:
             _eq: X-Hasura-User-Id
-        - quiz:
-            start_at:
-              _lte: now()
-        - quiz:
-            end_at:
-              _gte: now()
+        - live_quiz: {}
       set:
         user_id: x-hasura-user-id
       columns:
       - option_id
       - question_id
       - quiz_id
+- table:
+    schema: qberry
+    name: live_quiz
 - table:
     schema: qberry
     name: options
@@ -41,19 +47,20 @@
       - id
       - text
       filter:
-        _and:
-        - question:
-            quiz:
-              start_at:
-                _lte: now()
-        - question:
-            quiz:
-              end_at:
-                _gte: now()
+        question:
+          live_quiz: {}
 - table:
     schema: qberry
     name: questions
   object_relationships:
+  - name: live_quiz
+    using:
+      manual_configuration:
+        remote_table:
+          schema: qberry
+          name: live_quiz
+        column_mapping:
+          quiz_id: id
   - name: quiz
     using:
       foreign_key_constraint_on: quiz_id
@@ -73,17 +80,20 @@
       - quiz_id
       - text
       filter:
-        _and:
-        - quiz:
-            start_at:
-              _lte: now()
-        - quiz:
-            end_at:
-              _gte: now()
+        live_quiz: {}
       limit: 5
 - table:
     schema: qberry
     name: quiz
+  object_relationships:
+  - name: live_quiz
+    using:
+      manual_configuration:
+        remote_table:
+          schema: qberry
+          name: live_quiz
+        column_mapping:
+          id: id
   array_relationships:
   - name: questions
     using:
@@ -99,11 +109,7 @@
       - id
       - name
       filter:
-        _and:
-        - start_at:
-            _lte: now()
-        - end_at:
-            _gte: now()
+        live_quiz: {}
       limit: 1
 - table:
     schema: qberry
@@ -122,6 +128,14 @@
     schema: qberry
     name: session_questions
   object_relationships:
+  - name: live_quiz
+    using:
+      manual_configuration:
+        remote_table:
+          schema: qberry
+          name: live_quiz
+        column_mapping:
+          quiz_id: id
   - name: question
     using:
       foreign_key_constraint_on: question_id
@@ -139,16 +153,19 @@
         _and:
         - user_id:
             _eq: X-Hasura-User-Id
-        - quiz:
-            start_at:
-              _lte: now()
-        - quiz:
-            end_at:
-              _gte: now()
+        - live_quiz: {}
 - table:
     schema: qberry
     name: sessions
   object_relationships:
+  - name: live_quiz
+    using:
+      manual_configuration:
+        remote_table:
+          schema: qberry
+          name: live_quiz
+        column_mapping:
+          quiz_id: id
   - name: quiz
     using:
       foreign_key_constraint_on: quiz_id
@@ -172,12 +189,7 @@
         _and:
         - user_id:
             _eq: X-Hasura-User-Id
-        - quiz:
-            start_at:
-              _lte: now()
-        - quiz:
-            end_at:
-              _gte: now()
+        - live_quiz: {}
       set:
         user_id: x-hasura-user-id
       columns:
@@ -193,12 +205,7 @@
         _and:
         - user_id:
             _eq: X-Hasura-User-Id
-        - quiz:
-            start_at:
-              _lte: now()
-        - quiz:
-            end_at:
-              _gte: now()
+        - live_quiz: {}
 - table:
     schema: qberry
     name: users

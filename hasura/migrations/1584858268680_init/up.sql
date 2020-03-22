@@ -7,6 +7,21 @@ CREATE TABLE qberry.answers (
     question_id uuid NOT NULL,
     option_id uuid NOT NULL
 );
+CREATE TABLE qberry.quiz (
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    start_at timestamp with time zone NOT NULL,
+    end_at timestamp with time zone NOT NULL,
+    name text NOT NULL
+);
+CREATE VIEW qberry.live_quiz AS
+ SELECT quiz.id,
+    quiz.created_at,
+    quiz.start_at,
+    quiz.end_at,
+    quiz.name
+   FROM qberry.quiz
+  WHERE ((quiz.start_at <= now()) AND (quiz.end_at >= now()));
 CREATE TABLE qberry.options (
     id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     text text NOT NULL,
@@ -19,13 +34,6 @@ CREATE TABLE qberry.questions (
     text text NOT NULL,
     created_at timestamp with time zone DEFAULT now() NOT NULL,
     quiz_id uuid NOT NULL
-);
-CREATE TABLE qberry.quiz (
-    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
-    created_at timestamp with time zone DEFAULT now() NOT NULL,
-    start_at timestamp with time zone NOT NULL,
-    end_at timestamp with time zone NOT NULL,
-    name text NOT NULL
 );
 CREATE TABLE qberry.scores (
     quiz_id uuid NOT NULL,
@@ -124,6 +132,5 @@ BEGIN
    RETURN NEW;
 END;
 $$;
-
 CREATE TRIGGER trigger_calculate_score BEFORE INSERT ON qberry.answers FOR EACH ROW EXECUTE PROCEDURE qberry.calculate_score();
 CREATE TRIGGER trigger_populate_random_questions_for_session BEFORE INSERT ON qberry.sessions FOR EACH ROW EXECUTE PROCEDURE qberry.populate_random_questions_for_session();
