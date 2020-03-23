@@ -39,7 +39,7 @@ const Home = () => {
     return <div>Loading...</div>
   }
 
-  if (error) {
+  if (error && isAuthenticated) {
     console.error({ getUserProfileError: error });
     return <div>Error! Please refresh!</div>
   }
@@ -53,8 +53,6 @@ const Home = () => {
       return (<div>Redirecting to profile... <a href="/profile">Click here</a> if you're redirectd automatically.</div>);
     }
   }
-
-  console.log('what is going on?');
 
   return (
     <Container fluid>

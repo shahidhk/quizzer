@@ -1,0 +1,8 @@
+# replace :80 with your domain name to get automatic https via LetsEncrypt
+lilberry-api.shahidh.in {
+    proxy / graphql-engine:8080 {
+        websocket
+    }
+    tls muhammedshahid.k@gmail.com
+}
+

@@ -23,7 +23,8 @@ ReactDOM.render(
     client_id={config.clientId}
     redirect_uri={window.location.origin}
     onRedirectCallback={onRedirectCallback}
-    audience="https://hasura.shahidh.in"
+    audience="https://lilberry-api.shahidh.in"
+    scope="openid"
   >
     <App />
   </Auth0Provider>,

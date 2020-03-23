@@ -49,11 +49,11 @@ const Profile = () => {
       if (data && data.users.returning.length > 0) {
         const user = data.users.returning[0];
         if (user.name != null && user.class != null) {
-          alert("Profile update, let's go back to quiz!");
+          alert("Profile updated! Let's go back to quiz!");
           window.setTimeout(()=>{history.push('')}, 1000);
+        } else {
+          alert('Please fill name and class!');
         }
-      } else {
-        alert('Please fill name and class!');
       }
     },
     onError: (error) => {
