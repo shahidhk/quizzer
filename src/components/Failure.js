@@ -24,7 +24,7 @@ const Failure = () => {
     <Container fluid>
       <Row className="customCenter fullHeight">
         <Col className="customCenter contentContainer">
-          <Image src={fail} rounded className="imageFail" />
+          <Image src={fail} rounded className="imageFail" fluid />
           <h3 className="red">Sorry!</h3>
           <h5 className="m-t-1">Your score:{' '}
             {loading && 'Loading...'}

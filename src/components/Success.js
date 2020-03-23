@@ -12,7 +12,7 @@ const Success = () => (
   <Container fluid>
     <Row className="customCenter fullHeight">
       <Col className="customCenter contentContainer">
-        <Image src={win} rounded className="imageWin" />
+        <Image src={win} rounded className="imageWin" fluid />
         <h3 className="gold">Congratulations!</h3>
         <h5 className="m-t-1">Your score: 5/5</h5>
         <p>
