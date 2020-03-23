@@ -136,7 +136,7 @@ const Quiz = () => {
         <Col sm={12} lg={5} className="d-none d-lg-block">
           <Image src={qberry} fluid />
         </Col>
-        <Col csm={12} lg={7} className="customCenter contentContainer">
+        <Col sm={12} lg={7} className="customCenter contentContainer">
           <Card>
             <Card.Header as="h6">Question {currentQuestionIdx + 1}/{totalQuestions}</Card.Header>
 

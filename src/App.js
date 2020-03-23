@@ -61,6 +61,7 @@ const App = () => {
           </header>
           <Switch>
             <Route path="/" exact component={Home} />
+            <Route path="/home" exact component={Home} />
             <PrivateRoute path="/profile" component={Profile} />
             <PrivateRoute path="/quiz/:quizId" component={Quiz} />
             <PrivateRoute path="/congrats" component={Success} />

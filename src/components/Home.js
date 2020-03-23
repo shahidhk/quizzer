@@ -12,6 +12,14 @@ import { useAuth0 } from "../react-auth0-spa";
 
 import { useHistory } from "react-router-dom";
 
+const GET_USER_DETAILS = gql`query getUserDetails {
+  users: qberry_users {
+    mobile
+    name
+    class
+  }
+}`;
+
 const GET_QUIZ  = gql`query getQuiz {
   quiz: qberry_quiz {
     id
@@ -24,6 +32,30 @@ const GET_QUIZ  = gql`query getQuiz {
 
 const Home = () => {
   const { isAuthenticated, loginWithRedirect } = useAuth0();
+  const { data, loading, error } = useQuery(GET_USER_DETAILS, {fetchPolicy: 'network-only'});
+  let history = useHistory();
+
+  if (loading) {
+    return <div>Loading...</div>
+  }
+
+  if (error) {
+    console.error({ getUserProfileError: error });
+    return <div>Error! Please refresh!</div>
+  }
+
+  if (data && data.users && data.users.length > 0) {
+    const user = data.users[0];
+    if ((user.name == null || user.class == null) && isAuthenticated) {
+      window.setTimeout(()=>{
+        history.push('/profile');
+      }, 1000)
+      return (<div>Redirecting to profile... <a href="/profile">Click here</a> if you're redirectd automatically.</div>);
+    }
+  }
+
+  console.log('what is going on?');
+
   return (
     <Container fluid>
       <Row className="customCenter fullHeight">

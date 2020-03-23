@@ -23,15 +23,6 @@ const Header = () => {
               <LinkContainer to="/profile">
                 <Nav.Link>Profile</Nav.Link>
               </LinkContainer>
-              <LinkContainer to="/question">
-                <Nav.Link>Question</Nav.Link>
-              </LinkContainer>
-              <LinkContainer to="/congrats">
-                <Nav.Link>Success</Nav.Link>
-              </LinkContainer>
-              <LinkContainer to="/sorry">
-                <Nav.Link>Failure</Nav.Link>
-              </LinkContainer>
             </>
           )}
           {!isAuthenticated && (
