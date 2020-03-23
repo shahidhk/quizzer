@@ -220,10 +220,21 @@
   - role: user
     permission:
       columns:
+      - class
+      - created_at
       - id
       - mobile
       - name
-      - created_at
       filter:
         id:
           _eq: X-Hasura-User-Id
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - class
+      - name
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+      check: null

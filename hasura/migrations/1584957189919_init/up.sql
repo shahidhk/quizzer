@@ -55,6 +55,8 @@ CREATE TABLE qberry.users (
     mobile character varying,
     name text,
     created_at timestamp with time zone DEFAULT now() NOT NULL,
+    class smallint,
+    CONSTRAINT class_one_to_ten CHECK (((class > 0) AND (class <= 10))),
     CONSTRAINT mobile_number CHECK (((mobile)::text ~ '^(6|7|8|9)[0-9]{9}$'::text))
 );
 CREATE FUNCTION qberry.calculate_score() RETURNS trigger
