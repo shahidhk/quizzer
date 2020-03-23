@@ -16,6 +16,9 @@ const GET_QUIZ  = gql`query getQuiz {
   quiz: qberry_quiz {
     id
     name
+    scores {
+      score
+    }
   }
 }`;
 
@@ -49,7 +52,7 @@ const Home = () => {
 }
 
 const LiveQuiz = () => {
-  const { loading, error, data } = useQuery(GET_QUIZ);
+  const { loading, error, data } = useQuery(GET_QUIZ, { fetchPolicy: 'network-only'});
   if (loading) {
     return <div>Loading quiz...</div>;
   }
@@ -62,11 +65,20 @@ const LiveQuiz = () => {
   if (data && data.quiz && data.quiz.length > 0) {
     // we have live quiz
     const quiz = data.quiz[0]
+    let score = undefined;
+
+    const getScoreButton = () => {
+      if (quiz.scores && quiz.scores.length > 0) {
+        score = quiz.scores[0].score;
+        return (<Button>Your score is {score}/5</Button>);
+      }
+    }
     return (<div>
       <div style={{paddingBottom: '10px', fontWeight: '400'}}>
         Today's Quiz: {quiz.name}
       </div>
-      <StartQuizButton quizId={quiz.id} />
+      {getScoreButton()}
+      {score === undefined && (<StartQuizButton quizId={quiz.id} />)}
     </div>);
 
   }

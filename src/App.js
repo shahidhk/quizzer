@@ -63,8 +63,8 @@ const App = () => {
             <Route path="/" exact component={Home} />
             <PrivateRoute path="/profile" component={Profile} />
             <PrivateRoute path="/quiz/:quizId" component={Quiz} />
-            <PrivateRoute path="/success" component={Success} />
-            <PrivateRoute path="/failure" component={Failure} />
+            <PrivateRoute path="/congrats" component={Success} />
+            <PrivateRoute path="/sorry/:quizId" component={Failure} />
           </Switch>
         </Router>
       </div>

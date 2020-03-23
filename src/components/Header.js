@@ -26,10 +26,10 @@ const Header = () => {
               <LinkContainer to="/question">
                 <Nav.Link>Question</Nav.Link>
               </LinkContainer>
-              <LinkContainer to="/success">
+              <LinkContainer to="/congrats">
                 <Nav.Link>Success</Nav.Link>
               </LinkContainer>
-              <LinkContainer to="/failure">
+              <LinkContainer to="/sorry">
                 <Nav.Link>Failure</Nav.Link>
               </LinkContainer>
             </>

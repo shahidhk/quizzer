@@ -6,13 +6,12 @@ import Image from "react-bootstrap/Image";
 import qberry from "../images/qberry.png"
 import "../App.css";
 import Button from "react-bootstrap/Button";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import gql from 'graphql-tag';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery, useLazyQuery, useMutation } from '@apollo/react-hooks';
 
 const GET_QUESTIONS = gql`query getQuestionsForSession($quiz_id: uuid!) {
   questions: qberry_session_questions(where:{
@@ -37,11 +36,58 @@ const SUBMIT_ANSWERS = gql`mutation submitAnswer(
   }
 }`;
 
+const GET_SCORE = gql`query getScore($quiz_id: uuid!) {
+  scores: qberry_scores(where: {quiz_id: {_eq: $quiz_id}}) {
+    score
+  }
+}`;
+
 const Quiz = () => {
   const { quizId } = useParams();
+  let history = useHistory();
   const { data, loading, error } = useQuery(GET_QUESTIONS, { variables: { quiz_id: quizId } });
   const [answers, setAnswers] = useState({});
   const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0);
+  const [submitButtonText, setSubmitButtonText] = useState("Submit")
+  const [getScore] = useLazyQuery(GET_SCORE, {
+    onCompleted: (data) => {
+      if (data && data.scores && data.scores.length >0) {
+        console.log({getScoreData: data});
+        const score = data.scores[0].score;
+        if (score === 3) {
+          history.push('/congrats');
+        } else {
+          history.push(`/sorry/${quizId}`)
+        }
+      } else {
+        console.log({getScoreData: data});
+        setSubmitButtonText('Error! Try again!');
+      }
+    },
+    onError: (error) => {
+      console.error('get score error', error);
+      setSubmitButtonText('Error! Try again!')
+    }
+  });
+  const [submitAnswers] = useMutation(SUBMIT_ANSWERS, {
+    onCompleted: (data) => {
+      console.log('mutation data', data);
+      setSubmitButtonText('Done!');
+      if (data && data.answers && data.answers.affected_rows > 0) {
+        // submit happened, need to check score now
+        setSubmitButtonText('Getting your score...');
+        getScore({ variables: { quiz_id: quizId }});
+      } else {
+        console.log({submitAnswerData: data});
+        setSubmitButtonText('Error! Try again!');
+      }
+    },
+    onError: (error) => {
+      console.error('mutation error', error);
+      setSubmitButtonText('Error! Try again!')
+    },
+  });
+
 
   if (loading) {
     return <div>Loading...</div>
@@ -65,8 +111,23 @@ const Quiz = () => {
 
   const totalQuestions= data.questions.length;
 
-  const submitAnswers = (e) => {
-
+  const handleSubmitClick = (e) => {
+    // build variables, execute mutations, handle response
+    console.log({answers: Object.keys(answers).length, totalQuestions});
+    if (Object.keys(answers).length !== totalQuestions) {
+      alert('Answer all questions and try agian!');
+      return
+    }
+    let answersInput = [];
+    Object.keys(answers).forEach((k) => {
+      answersInput.push({
+        quiz_id: quizId,
+        question_id: k,
+        option_id: answers[k]
+      });
+    });
+    setSubmitButtonText('Submitting...');
+    submitAnswers({variables: {answers: answersInput}});
   }
 
   return (
@@ -87,7 +148,7 @@ const Quiz = () => {
               style={{ padding: '5px' }}
             >
               <Button disabled={currentQuestionIdx === 0} variant="outline-secondary" onClick={showPreviousQuestion}>&lt;</Button>
-              {currentQuestionIdx === totalQuestions - 1 && (<Button variant="primary" onClick={submitAnswers}>Submit</Button>)}
+              {currentQuestionIdx === totalQuestions - 1 && (<Button variant="primary" onClick={handleSubmitClick}>{submitButtonText}</Button>)}
               <Button disabled={currentQuestionIdx === totalQuestions - 1} variant="outline-secondary" onClick={showNextQuestion}>&gt;</Button>
             </ButtonToolbar>
           </Card>
