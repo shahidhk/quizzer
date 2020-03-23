@@ -102,6 +102,13 @@
         table:
           schema: qberry
           name: questions
+  - name: scores
+    using:
+      foreign_key_constraint_on:
+        column: quiz_id
+        table:
+          schema: qberry
+          name: scores
   select_permissions:
   - role: user
     permission:
