@@ -54,7 +54,7 @@ const Quiz = () => {
       if (data && data.scores && data.scores.length >0) {
         console.log({getScoreData: data});
         const score = data.scores[0].score;
-        if (score === 3) {
+        if (score === 5) {
           history.push('/congrats');
         } else {
           history.push(`/sorry/${quizId}`)
