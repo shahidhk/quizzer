@@ -36,7 +36,7 @@ const Header = () => {
           {!isAuthenticated && (
             <Button onClick={() => loginWithRedirect({})}>Log In</Button>
           )}
-          {isAuthenticated && <Button onClick={() => logout()}>Log out</Button>}
+          {isAuthenticated && <Button onClick={() => logout({returnTo: window.location.origin})}>Log out</Button>}
         </Nav>
       </Navbar.Collapse>
     </Navbar>
