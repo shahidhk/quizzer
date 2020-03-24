@@ -13,18 +13,22 @@ import { useHistory } from "react-router-dom";
 
 const GET_USER_DETAILS = gql`query getUserDetails {
   users: qberry_users {
+    id
+    email
     mobile
     name
     class
   }
 }`;
 
-const UPDATE_USER_DETAILS = gql`mutation updateUserDetails($mobile: String!, $name: String!, $class: smallint!) {
+const UPDATE_USER_DETAILS = gql`mutation updateUserDetails($id: String!, $email: String, $mobile: String, $name: String!, $class: smallint!) {
   users: update_qberry_users(_set: {
     name: $name
     class: $class
+    email: $email
+    mobile: $mobile
   }, where: {
-    mobile: {_eq: $mobile}
+    id: {_eq: $id}
   }) {
     affected_rows
     returning {
@@ -81,15 +85,18 @@ const Profile = () => {
   let userInput = {
     name: null,
     mobile: null,
-    class: null
+    class: null,
+    email: null
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     updateTodo({ variables: {
+      id: user.id,
       mobile: userInput.mobile.value,
       name: userInput.name.value,
-      class: userInput.class.value
+      class: userInput.class.value,
+      email: userInput.email.value
     }})
 
   }
@@ -108,7 +115,12 @@ const Profile = () => {
 
                 <Form.Group controlId="formGridMobile">
                   <Form.Label>Mobile</Form.Label>
-                  <Form.Control ref={node => {userInput.mobile = node}} name="mobile" disabled placeholder="" defaultValue={user.mobile} />
+                  <Form.Control ref={node => {userInput.mobile = node}} name="mobile" placeholder="" defaultValue={user.mobile} />
+                </Form.Group>
+
+                <Form.Group controlId="formGridEmail">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control ref={node => {userInput.email = node}} name="email" placeholder="" defaultValue={user.email} />
                 </Form.Group>
 
                 <Form.Group controlId="formGridName">
