@@ -222,9 +222,12 @@
       columns:
       - class
       - created_at
+      - email
       - id
       - mobile
       - name
+      - address
+      - school
       filter:
         id:
           _eq: X-Hasura-User-Id
@@ -233,7 +236,11 @@
     permission:
       columns:
       - class
+      - email
+      - mobile
       - name
+      - address
+      - school
       filter:
         id:
           _eq: X-Hasura-User-Id

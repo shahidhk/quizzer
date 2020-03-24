@@ -38,7 +38,8 @@ CREATE TABLE qberry.questions (
 CREATE TABLE qberry.scores (
     quiz_id uuid NOT NULL,
     user_id text NOT NULL,
-    score integer NOT NULL
+    score integer NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL
 );
 CREATE TABLE qberry.session_questions (
     question_id uuid NOT NULL,
@@ -52,12 +53,14 @@ CREATE TABLE qberry.sessions (
 );
 CREATE TABLE qberry.users (
     id text NOT NULL,
-    mobile character varying,
+    mobile text,
     name text,
     created_at timestamp with time zone DEFAULT now() NOT NULL,
     class smallint,
-    CONSTRAINT class_one_to_ten CHECK (((class > 0) AND (class <= 10))),
-    CONSTRAINT mobile_number CHECK (((mobile)::text ~ '^(6|7|8|9)[0-9]{9}$'::text))
+    email text,
+    school text,
+    address text,
+    CONSTRAINT class_one_to_ten CHECK (((class > 0) AND (class <= 10)))
 );
 CREATE FUNCTION qberry.calculate_score() RETURNS trigger
     LANGUAGE plpgsql
@@ -104,11 +107,9 @@ ALTER TABLE ONLY qberry.sessions
 ALTER TABLE ONLY qberry.session_questions
     ADD CONSTRAINT session_questions_pkey PRIMARY KEY (user_id, quiz_id, question_id);
 ALTER TABLE ONLY qberry.users
-    ADD CONSTRAINT users_mobile_key UNIQUE (mobile);
-ALTER TABLE ONLY qberry.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
-CREATE TRIGGER trigger_calculate_score BEFORE INSERT ON qberry.answers FOR EACH ROW EXECUTE PROCEDURE qberry.calculate_score();
-CREATE TRIGGER trigger_populate_random_questions_for_session BEFORE INSERT ON qberry.sessions FOR EACH ROW EXECUTE PROCEDURE qberry.populate_random_questions_for_session();
+CREATE TRIGGER trigger_calculate_score BEFORE INSERT ON qberry.answers FOR EACH ROW EXECUTE FUNCTION qberry.calculate_score();
+CREATE TRIGGER trigger_populate_random_questions_for_session BEFORE INSERT ON qberry.sessions FOR EACH ROW EXECUTE FUNCTION qberry.populate_random_questions_for_session();
 ALTER TABLE ONLY qberry.answers
     ADD CONSTRAINT answers_answered_by_fkey FOREIGN KEY (user_id) REFERENCES qberry.users(id) ON UPDATE RESTRICT ON DELETE RESTRICT;
 ALTER TABLE ONLY qberry.answers
