@@ -68,10 +68,10 @@
   width: 100%;
 }
 .imageWin{
-  width: 20%;
+  width: 200px;
 }
 .imageFail{
-  width: 20%;
+  width: 300px;
 }
 .fullHeight {
   height: 90vh;

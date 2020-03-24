@@ -3,8 +3,7 @@ import './App.css';
 import Header from './components/Header';
 import Home from './components/Home';
 import Quiz from './components/Quiz';
-import Success from './components/Success';
-import Failure from './components/Failure';
+import Result from './components/Result';
 import { useAuth0 } from "./react-auth0-spa";
 
 import { Router, Route, Switch } from "react-router-dom";
@@ -64,8 +63,7 @@ const App = () => {
             <Route path="/home" exact component={Home} />
             <PrivateRoute path="/profile" component={Profile} />
             <PrivateRoute path="/quiz/:quizId" component={Quiz} />
-            <PrivateRoute path="/congrats" component={Success} />
-            <PrivateRoute path="/sorry/:quizId" component={Failure} />
+            <PrivateRoute path="/result/:quizId" component={Result} />
           </Switch>
         </Router>
       </div>
