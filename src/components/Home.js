@@ -18,6 +18,8 @@ const GET_USER_DETAILS = gql`query getUserDetails {
     mobile
     name
     class
+    school
+    address
   }
 }`;
 
@@ -47,7 +49,7 @@ const Home = () => {
 
   if (data && data.users && data.users.length > 0) {
     const user = data.users[0];
-    if ((user.name == null || user.class == null) && isAuthenticated) {
+    if ((user.name == null || user.class == null || user.mobile == null || user.school == null || user.address == null) && isAuthenticated) {
       window.setTimeout(()=>{
         history.push('/profile');
       }, 1000)
