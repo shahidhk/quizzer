@@ -1,6 +1,6 @@
 export const brand = {
-  title: 'Summerise',
-  description: 'Exams for Summerise courses',
+  title: 'SummeRise',
+  description: 'Exams for SummeRise courses',
   image_url: '/logo.png',
   navbar_logo_url: '/navbar_logo.png',
   rules: 'T & C',
