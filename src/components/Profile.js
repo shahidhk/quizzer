@@ -1,58 +1,16 @@
 import React from "react";
-import gql from 'graphql-tag';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import Row from "react-bootstrap/Row";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
-import qberry from "../images/qberry.png"
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import { useHistory } from "react-router-dom";
 
-const GET_USER_DETAILS = gql`query getUserDetails {
-  users: qberry_users {
-    id
-    email
-    mobile
-    name
-    class
-    school
-    address
-  }
-}`;
-
-const UPDATE_USER_DETAILS = gql`mutation updateUserDetails(
-    $id: String!
-    $email: String
-    $mobile: String!
-    $name: String!
-    $class: smallint!
-    $school: String!
-    $address: String!
-  ) {
-  users: update_qberry_users(_set: {
-    name: $name
-    class: $class
-    email: $email
-    mobile: $mobile
-    address: $address
-    school: $school
-  }, where: {
-    id: {_eq: $id}
-  }) {
-    affected_rows
-    returning {
-      name
-      mobile
-      class
-      address
-      email
-      school
-    }
-  }
-}`;
+import { GET_USER_DETAILS, UPDATE_USER_DETAILS } from '../graphql';
+import { brand } from '../constants';
 
 const Profile = () => {
   let history = useHistory();
@@ -61,14 +19,14 @@ const Profile = () => {
   );
 
   const [
-    updateTodo,
+    updateUser,
     { loading: mutationLoading },
   ] = useMutation(UPDATE_USER_DETAILS, {
     onCompleted: (data) => {
       if (data && data.users.returning.length > 0) {
         const user = data.users.returning[0];
         if (user.name != null && user.class != null && user.mobile != null && user.school != null && user.address != null) {
-          alert("Profile updated! Let's go back to quiz!");
+          alert("Profile updated! Let's go to questions!");
           window.setTimeout(()=>{history.push('')}, 1000);
         } else {
           alert('Please fill mobile number, name, address, school and class!');
@@ -90,12 +48,20 @@ const Profile = () => {
     return <div>Error! {queryError.message}</div>
   }
 
-  if (!(data && data.users && data.users.length > 0)) {
-    console.log({ data })
-    return <div>Unknown Error!</div>
-  }
+  let user;
 
-  let user = data.users[0];
+  if (!(data && data.users && data.users.length > 0)) {
+    user = {
+      name: null,
+      mobile: null,
+      class: null,
+      email: null,
+      school: null,
+      address: null
+    };
+  } else {
+    user = data.users[0];
+  }
 
   let userInput = {
     name: null,
@@ -108,8 +74,7 @@ const Profile = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateTodo({ variables: {
-      id: user.id,
+    updateUser({ variables: {
       mobile: userInput.mobile.value,
       name: userInput.name.value,
       class: userInput.class.value,
@@ -124,7 +89,7 @@ const Profile = () => {
     <Container fluid>
       <Row className="customCenter fullHeight">
         <Col sm={12} lg={5} className="d-none d-lg-block">
-          <Image src={qberry} rounded className="image" fluid />
+          <Image src={brand.image_url} rounded className="image" fluid />
         </Col>
         <Col sm={12} lg={7} className="customCenter contentContainer">
           <Card>
@@ -176,7 +141,7 @@ const Profile = () => {
 
             </Card.Body>
             <Button variant="secondary" onClick={() => history.push('')}>
-              Go back to quiz
+              Go to questions
             </Button>
           </Card>
         </Col>

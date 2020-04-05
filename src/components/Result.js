@@ -4,10 +4,15 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 import Success from './Success';
 import Failure from './Failure';
+import Neutral from './Neutral';
 
 const GET_SCORE = gql`query getScore($quiz_id: uuid!) {
-  scores: qberry_scores(where: {quiz_id: {_eq: $quiz_id}}) {
-    score
+  quiz: quiz_by_pk (id: $quiz_id) {
+    show_score
+    scores {
+      score
+      max
+    }
   }
 }`;
 
@@ -24,14 +29,24 @@ const Result = () => {
     return <div>Error! Please refresh!</div>
   }
 
-  if (data && data.scores && data.scores.length >0) {
-    const score = data.scores[0].score
-    if (score === 5) {
-      return <Success score={score} />
+  if (data && data.quiz ) {
+    if (data.quiz.show_score) {
+      if(data.quiz.scores && data.quiz.scores.length >0) {
+        const score = data.quiz.scores[0].score;
+        const max = data.quiz.scores[0].max;
+        if (score === max) {
+          return <Success score={score} max={max} />
+        } else {
+          return <Failure score={score} max={max} />
+        }
+      }
     } else {
-      return <Failure score={score} />
+      // don't show score
+      return <Neutral />
+
     }
   }
+
 
   console.error({scoresData: data});
 

@@ -70,6 +70,10 @@
 .imageWin{
   width: 200px;
 }
+.imageDone {
+    width: 200px;
+    padding-bottom: 40px;
+}
 .imageFail{
   width: 300px;
 }

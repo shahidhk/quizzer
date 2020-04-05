@@ -3,38 +3,19 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
-import qberry from "../images/qberry.png"
 import "../App.css";
 import Button from "react-bootstrap/Button";
 import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import { useParams, useHistory } from 'react-router-dom';
-import gql from 'graphql-tag';
 import { useQuery, useMutation } from '@apollo/react-hooks';
+import { brand } from '../constants';
 
-const GET_QUESTIONS = gql`query getQuestionsForSession($quiz_id: uuid!) {
-  questions: qberry_session_questions(where:{
-    quiz_id: {_eq: $quiz_id}
-  }) {
-    question {
-      id
-      text
-      options {
-        id
-        text
-      }
-    }
-  }
-}`;
-
-const SUBMIT_ANSWERS = gql`mutation submitAnswer(
-  $answers: [qberry_answers_insert_input!]!
-) {
-  answers: insert_qberry_answers(objects: $answers) {
-    affected_rows
-  }
-}`;
+import {
+  GET_QUESTIONS,
+  SUBMIT_ANSWERS,
+} from '../graphql';
 
 const Quiz = () => {
   const { quizId } = useParams();
@@ -108,7 +89,7 @@ const Quiz = () => {
     <Container fluid>
       <Row className="customCenter fullHeight">
         <Col sm={12} lg={5} className="d-none d-lg-block">
-          <Image src={qberry} fluid />
+          <Image src={brand.image_url} fluid />
         </Col>
         <Col sm={12} lg={7} className="customCenter contentContainer">
           <Card>
@@ -143,7 +124,7 @@ const Question = ({ question, answers, setAnswers }) => {
         <ListGroup variant="flush">
           {question.options.map((option) => (
             <ListGroup.Item
-              style={{ cursor: 'pointer' }} 
+              style={{ cursor: 'pointer' }}
               key={option.id}
               onClick={(e)=>{
                 handleClick(question.id, option.id);
