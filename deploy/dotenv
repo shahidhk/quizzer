@@ -1,3 +1,0 @@
-POSTGRES_PASSWORD=randompassword
-ADMIN_SECRET=randomsecret
-JWT_SECRET=
