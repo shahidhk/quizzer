@@ -172,7 +172,7 @@ const RulesModal = ({show, setShow, startQuiz}) => {
           <Modal.Title>{brand.title}: Terms & Conditions</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {brand.rules}
+          <div dangerouslySetInnerHTML={{__html: brand.rules}}></div>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
