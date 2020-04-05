@@ -25,11 +25,11 @@ const Profile = () => {
     onCompleted: (data) => {
       if (data && data.users.returning.length > 0) {
         const user = data.users.returning[0];
-        if (user.name != null && user.class != null && user.mobile != null && user.school != null && user.address != null) {
+        if (user.name != null && user.guardian_name != null && user.mobile != null && user.school != null && user.address != null && user.district != null && user.area != null) {
           alert("Profile updated! Let's go to questions!");
           window.setTimeout(()=>{history.push('')}, 1000);
         } else {
-          alert('Please fill mobile number, name, address, school and class!');
+          alert('Please fill all fields!');
         }
       }
     },
@@ -55,9 +55,11 @@ const Profile = () => {
       name: null,
       mobile: null,
       class: null,
-      email: null,
+      guardian_name: null,
       school: null,
-      address: null
+      address: null,
+      district: null,
+      area: null,
     };
   } else {
     user = data.users[0];
@@ -67,9 +69,11 @@ const Profile = () => {
     name: null,
     mobile: null,
     class: null,
-    email: null,
+    guardian_name: null,
     school: null,
-    address: null
+    address: null,
+    district: null,
+    area: null,
   };
 
   const handleSubmit = (e) => {
@@ -78,9 +82,11 @@ const Profile = () => {
       mobile: userInput.mobile.value,
       name: userInput.name.value,
       class: userInput.class.value,
-      email: userInput.email.value,
+      guardian_name: userInput.guardian_name.value,
       school: userInput.school.value,
-      address: userInput.address.value
+      address: userInput.address.value,
+      district: userInput.district.value,
+      area: userInput.area.value,
     }})
 
   }
@@ -98,36 +104,46 @@ const Profile = () => {
               <Form onSubmit={handleSubmit}>
 
                 <Form.Group controlId="formGridName">
-                  <Form.Label>Name</Form.Label>
-                  <Form.Control ref={node => {userInput.name = node}} required name="name" addressholder="You name" defaultValue={user.name}/>
+                  <Form.Label>പേര്</Form.Label>
+                  <Form.Control ref={node => {userInput.name = node}} required name="name" defaultValue={user.name}/>
+                </Form.Group>
+
+                <Form.Group controlId="formGridGuardianName">
+                  <Form.Label>രക്ഷിതാവിന്റെ പേര്</Form.Label>
+                  <Form.Control ref={node => {userInput.guardian_name = node}} required name="guardian_name" defaultValue={user.guardian_name}/>
                 </Form.Group>
 
                 <Form.Group controlId="formGridMobile">
-                  <Form.Label>Mobile</Form.Label>
-                  <Form.Control ref={node => {userInput.mobile = node}} required name="mobile" addressholder="" defaultValue={user.mobile} />
-                </Form.Group>
-
-                <Form.Group controlId="formGridEmail">
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control ref={node => {userInput.email = node}} name="email" addressholder="" defaultValue={user.email} />
+                  <Form.Label>ഫോൺ നമ്പർ</Form.Label>
+                  <Form.Control ref={node => {userInput.mobile = node}} required name="mobile" defaultValue={user.mobile} />
                 </Form.Group>
 
                 <Form.Group controlId="formGridAddress">
-                  <Form.Label>Address</Form.Label>
-                  <Form.Control ref={node => {userInput.address= node}} required name="address" addressholder="You address" defaultValue={user.address}/>
+                  <Form.Label>സ്ഥലം</Form.Label>
+                  <Form.Control ref={node => {userInput.address= node}} required name="address" defaultValue={user.address}/>
+                </Form.Group>
+
+                <Form.Group controlId="formGridDistrict">
+                  <Form.Label>ജില്ല</Form.Label>
+                  <Form.Control ref={node => {userInput.district = node}} required name="district" defaultValue={user.district}/>
+                </Form.Group>
+
+                <Form.Group controlId="formGridArea">
+                  <Form.Label>ഏരിയ</Form.Label>
+                  <Form.Control ref={node => {userInput.area= node}} required name="area" defaultValue={user.area}/>
                 </Form.Group>
 
                 <Form.Group controlId="formGridSchool">
-                  <Form.Label>School</Form.Label>
-                  <Form.Control ref={node => {userInput.school = node}} required name="school" addressholder="You school" defaultValue={user.school}/>
+                  <Form.Label>സ്കൂൾ</Form.Label>
+                  <Form.Control ref={node => {userInput.school = node}} required name="school" defaultValue={user.school}/>
                 </Form.Group>
 
                 <Form.Group controlId="formGridClass">
-                  <Form.Label>Class</Form.Label>
-                  <Form.Control ref={node => {userInput.class= node}} required name="class" defaultValue={user.class} as="select" addressholder="Class (going-to)">
+                  <Form.Label>ക്ലാസ്</Form.Label>
+                  <Form.Control ref={node => {userInput.class= node}} required name="class" defaultValue={user.class} as="select">
                     <option key={0} value={0}>{'--'}</option>
-                    {[ ...Array(10).keys() ].map( (i) => (
-                      <option key={i+1} value={i+1}>{i+1}</option>
+                    {[ 3,4,5,6 ].map( (i) => (
+                      <option key={i} value={i}>{i}</option>
                     ))}
                   </Form.Control>
                 </Form.Group>
