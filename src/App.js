@@ -35,7 +35,7 @@ const App = () => {
   });
 
   const httpLink = createHttpLink({
-    uri: 'http://localhost:8080/v1/graphql'
+    uri: 'https://alif-api.shahidh.in/v1/graphql'
   })
 
   const createApolloClient = () => {
