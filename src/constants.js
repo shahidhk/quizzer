@@ -1,6 +1,6 @@
 export const brand = {
-  title: 'Quiz',
-  description: 'Quiz description',
+  title: 'Summerise',
+  description: 'Exams for Summerise courses',
   image_url: '/logo.png',
   navbar_logo_url: '/navbar_logo.png',
   rules: 'T & C',
