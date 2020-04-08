@@ -1,6 +1,6 @@
 export const brand = {
   title: 'SummeRise',
-  description: 'Phase 1 Exams',
+  description: 'Phase 1 Exam',
   image_url: '/logo.png',
   navbar_logo_url: '/navbar_logo.png',
   rules: `SummeRise (സമ്മറൈസ്), അവധിക്കാല പദ്ധതിയുടെ, ഒന്നാം ഘട്ട പരീക്ഷയാണ് നിങ്ങൾ അറ്റൻഡ് ചെയ്യാൻ പോകുന്നത്. ഇത് ഇന്ത്യയിലും വിദേശത്തും സാധുതയുള്ളതാണ്.
