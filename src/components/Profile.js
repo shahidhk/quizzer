@@ -99,32 +99,32 @@ const Profile = () => {
 
                 <Form.Group controlId="formGridName">
                   <Form.Label>Name</Form.Label>
-                  <Form.Control ref={node => {userInput.name = node}} required name="name" addressholder="You name" defaultValue={user.name}/>
+                  <Form.Control ref={node => {userInput.name = node}} required name="name" defaultValue={user.name}/>
                 </Form.Group>
 
                 <Form.Group controlId="formGridMobile">
                   <Form.Label>Mobile</Form.Label>
-                  <Form.Control ref={node => {userInput.mobile = node}} required name="mobile" addressholder="" defaultValue={user.mobile} />
+                  <Form.Control ref={node => {userInput.mobile = node}} required name="mobile" defaultValue={user.mobile} />
                 </Form.Group>
 
                 <Form.Group controlId="formGridEmail">
                   <Form.Label>Email</Form.Label>
-                  <Form.Control ref={node => {userInput.email = node}} name="email" addressholder="" defaultValue={user.email} />
+                  <Form.Control ref={node => {userInput.email = node}} required name="email" defaultValue={user.email} />
                 </Form.Group>
 
                 <Form.Group controlId="formGridAddress">
                   <Form.Label>Address</Form.Label>
-                  <Form.Control ref={node => {userInput.address= node}} required name="address" addressholder="You address" defaultValue={user.address}/>
+                  <Form.Control ref={node => {userInput.address= node}} required name="address" defaultValue={user.address}/>
                 </Form.Group>
 
                 <Form.Group controlId="formGridSchool">
                   <Form.Label>School</Form.Label>
-                  <Form.Control ref={node => {userInput.school = node}} required name="school" addressholder="You school" defaultValue={user.school}/>
+                  <Form.Control ref={node => {userInput.school = node}} required name="school" defaultValue={user.school}/>
                 </Form.Group>
 
                 <Form.Group controlId="formGridClass">
                   <Form.Label>Class</Form.Label>
-                  <Form.Control ref={node => {userInput.class= node}} required name="class" defaultValue={user.class} as="select" addressholder="Class (going-to)">
+                  <Form.Control ref={node => {userInput.class= node}} required name="class" defaultValue={user.class} as="select">
                     <option key={0} value={0}>{'--'}</option>
                     {[ ...Array(10).keys() ].map( (i) => (
                       <option key={i+1} value={i+1}>{i+1}</option>
