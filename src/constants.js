@@ -1,5 +1,5 @@
 export const brand = {
-  title: 'ALIF Kids Exam',
+  title: "ALIF Kid's Exam",
   description: '',
   image_url: '/logo.png',
   navbar_logo_url: '/navbar_logo.png',
