@@ -2,8 +2,6 @@ import React from 'react';
 import gql from 'graphql-tag';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
-import Success from './Success';
-import Failure from './Failure';
 import Neutral from './Neutral';
 
 const GET_SCORE = gql`query getScore($quiz_id: uuid!) {
@@ -34,16 +32,10 @@ const Result = () => {
       if(data.quiz.scores && data.quiz.scores.length >0) {
         const score = data.quiz.scores[0].score;
         const max = data.quiz.scores[0].max;
-        if (score === max) {
-          return <Success score={score} max={max} />
-        } else {
-          return <Failure score={score} max={max} />
-        }
+        return <Neutral score={score} max={max} />
       }
     } else {
-      // don't show score
-      return <Neutral />
-
+      return <div>Error! Please refresh!</div>
     }
   }
 

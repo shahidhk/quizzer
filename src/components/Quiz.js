@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
+import Modal from "react-bootstrap/Modal";
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 import "../App.css";
@@ -11,6 +12,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import { useParams, useHistory } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { brand } from '../constants';
+import Timer from 'react-compound-timer';
 
 import {
   GET_QUESTIONS,
@@ -22,6 +24,7 @@ const Quiz = () => {
   let history = useHistory();
   const { data, loading, error } = useQuery(GET_QUESTIONS, { variables: { quiz_id: quizId } });
   const [answers, setAnswers] = useState({});
+  const [showTimesUpModal, setShowTimesUpModal] = useState(false);
   const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0);
   const [submitButtonText, setSubmitButtonText] = useState("Submit")
   const [submitAnswers] = useMutation(SUBMIT_ANSWERS, {
@@ -92,6 +95,7 @@ const Quiz = () => {
           <Image src={brand.image_url} fluid />
         </Col>
         <Col sm={12} lg={7} className="customCenter contentContainer">
+          <TimerD showModal={setShowTimesUpModal} />
           <Card>
             <Card.Header as="h6">Question {currentQuestionIdx + 1}/{totalQuestions}</Card.Header>
 
@@ -109,6 +113,7 @@ const Quiz = () => {
           </Card>
         </Col>
       </Row>
+      <TimesUpModal show={showTimesUpModal} setShow={setShowTimesUpModal} />
     </Container>
   );
 }
@@ -135,6 +140,52 @@ const Question = ({ question, answers, setAnswers }) => {
         </ListGroup>
       </Card>
     </Card.Body>
+  );
+}
+
+const TimerD = ({ showModal }) => {
+  return (<Timer
+    initialTime={60*60*1000}
+    lastUnit="m"
+    direction="backward"
+    checkpoints={[
+      {
+          time: 0,
+          callback: () => { showModal(true); },
+      },
+  ]}
+  >
+    {() => (
+      <div style={{fontSize: '1.4em', padding:'10px 10px', color: 'green'}}>
+        <Timer.Minutes /> m &nbsp;
+        <Timer.Seconds /> s
+        remaining
+      </div>
+    )}
+  </Timer>);
+}
+
+
+const TimesUpModal = ({show, setShow}) => {
+
+  const handleClose = () => setShow(false);
+
+  return (
+    <>
+      <Modal show={show} onHide={handleClose} size="sm">
+        <Modal.Header closeButton>
+          <Modal.Title>Time's Up!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div>You have exhaused 1 hour allotted for the exam!</div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            OK
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
   );
 }
 

@@ -9,11 +9,12 @@ import Button from 'react-bootstrap/Button';
 import '../App.css';
 import { brand } from '../constants';
 
-const Neutral = () => (
+const Neutral = ({score, max}) => (
   <Container fluid>
     <Row className="customCenter fullHeight">
       <Col className="customCenter contentContainer">
         <Image src={done} rounded className="imageDone" fluid />
+        <h5 className="m-t-1">Your score: {score}/{max}</h5>
         <p dangerouslySetInnerHTML={{ __html: brand.neutral_text}}></p>
         <LinkContainer to="/">
           <Button>Go home</Button>

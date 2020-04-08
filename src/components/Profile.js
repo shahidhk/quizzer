@@ -25,7 +25,7 @@ const Profile = () => {
     onCompleted: (data) => {
       if (data && data.users.returning.length > 0) {
         const user = data.users.returning[0];
-        if (user.name != null && user.class != null && user.mobile != null && user.school != null && user.address != null) {
+        if (user.name != null && user.class != null && user.mobile != null && user.school != null && user.address != null && user.country != null) {
           alert("Profile updated! Let's go to questions!");
           window.setTimeout(()=>{history.push('')}, 1000);
         } else {
@@ -55,7 +55,7 @@ const Profile = () => {
       name: null,
       mobile: null,
       class: null,
-      email: null,
+      country: null,
       school: null,
       address: null
     };
@@ -67,7 +67,7 @@ const Profile = () => {
     name: null,
     mobile: null,
     class: null,
-    email: null,
+    country: null,
     school: null,
     address: null
   };
@@ -78,7 +78,7 @@ const Profile = () => {
       mobile: userInput.mobile.value,
       name: userInput.name.value,
       class: userInput.class.value,
-      email: userInput.email.value,
+      country: userInput.country.value,
       school: userInput.school.value,
       address: userInput.address.value
     }})
@@ -99,32 +99,32 @@ const Profile = () => {
 
                 <Form.Group controlId="formGridName">
                   <Form.Label>Name</Form.Label>
-                  <Form.Control ref={node => {userInput.name = node}} required name="name" addressholder="You name" defaultValue={user.name}/>
+                  <Form.Control ref={node => {userInput.name = node}} required name="name" defaultValue={user.name}/>
                 </Form.Group>
 
                 <Form.Group controlId="formGridMobile">
                   <Form.Label>Mobile</Form.Label>
-                  <Form.Control ref={node => {userInput.mobile = node}} required name="mobile" addressholder="" defaultValue={user.mobile} />
-                </Form.Group>
-
-                <Form.Group controlId="formGridEmail">
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control ref={node => {userInput.email = node}} name="email" addressholder="" defaultValue={user.email} />
+                  <Form.Control ref={node => {userInput.mobile = node}} required name="mobile" defaultValue={user.mobile} />
                 </Form.Group>
 
                 <Form.Group controlId="formGridAddress">
                   <Form.Label>Address</Form.Label>
-                  <Form.Control ref={node => {userInput.address= node}} required name="address" addressholder="You address" defaultValue={user.address}/>
+                  <Form.Control ref={node => {userInput.address= node}} required name="address" defaultValue={user.address}/>
                 </Form.Group>
 
                 <Form.Group controlId="formGridSchool">
                   <Form.Label>School</Form.Label>
-                  <Form.Control ref={node => {userInput.school = node}} required name="school" addressholder="You school" defaultValue={user.school}/>
+                  <Form.Control ref={node => {userInput.school = node}} required name="school" defaultValue={user.school}/>
+                </Form.Group>
+                
+                <Form.Group controlId="formGridCountry">
+                  <Form.Label>Country</Form.Label>
+                  <Form.Control ref={node => {userInput.country = node}} required name="country" defaultValue={user.country} />
                 </Form.Group>
 
                 <Form.Group controlId="formGridClass">
                   <Form.Label>Class</Form.Label>
-                  <Form.Control ref={node => {userInput.class= node}} required name="class" defaultValue={user.class} as="select" addressholder="Class (going-to)">
+                  <Form.Control ref={node => {userInput.class= node}} required name="class" defaultValue={user.class} as="select">
                     <option key={0} value={0}>{'--'}</option>
                     {[ ...Array(10).keys() ].map( (i) => (
                       <option key={i+1} value={i+1}>{i+1}</option>

@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 export const GET_USER_DETAILS = gql`query getUserDetails {
   users {
     id
-    email
+    country 
     mobile
     name
     class
@@ -25,7 +25,7 @@ export const GET_QUIZ = gql`query getQuiz {
 }`;
 
 export const UPDATE_USER_DETAILS = gql`mutation upsertUserDetails(
-    $email: String
+    $country: String!
     $mobile: String!
     $name: String!
     $class: smallint!
@@ -35,7 +35,7 @@ export const UPDATE_USER_DETAILS = gql`mutation upsertUserDetails(
   users: insert_users(objects: {
     name: $name
     class: $class
-    email: $email
+    country: $country
     mobile: $mobile
     address: $address
     school: $school
@@ -44,7 +44,7 @@ export const UPDATE_USER_DETAILS = gql`mutation upsertUserDetails(
     update_columns: [
       address
       class
-      email
+      country 
       mobile
       name
       school
@@ -56,7 +56,7 @@ export const UPDATE_USER_DETAILS = gql`mutation upsertUserDetails(
       mobile
       class
       address
-      email
+      country 
       school
     }
   }
