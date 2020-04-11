@@ -7,4 +7,7 @@ export const brand = {
   neutral_text: `Winners will be announced later`,
   fail_text: 'Try later',
   win_text: `You won!`,
+  sorry_text: `Sorry, there are no quizzes live right now. Check back later!`,
 };
+
+export const api_url = 'https://wisdom-api.shahidh.in/v1/graphql';

@@ -96,7 +96,7 @@ const LiveQuiz = () => {
 
   if (data && data.quiz && data.quiz.length === 0) {
     // we don't have a quiz
-    return <div>Sorry, there are no quizzes live right now. Check back later!</div>
+    return <div dangerouslySetInnerHTML={{__html: brand.sorry_text}}></div>
   }
 }
 
