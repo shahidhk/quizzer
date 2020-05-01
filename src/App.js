@@ -16,6 +16,7 @@ import { setContext } from 'apollo-link-context';
 import { ApolloProvider } from '@apollo/react-hooks';
 
 import { getSessionId, createSessionId } from './localstorage';
+import { api_url } from './constants';
 
 
 const App = () => {
@@ -35,7 +36,7 @@ const App = () => {
   });
 
   const httpLink = createHttpLink({
-    uri: 'https://alif-api.shahidh.in/v1/graphql'
+    uri: api_url
   })
 
   const createApolloClient = () => {

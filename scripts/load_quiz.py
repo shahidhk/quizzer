@@ -3,15 +3,18 @@
 import csv
 import requests
 
-filename='quiz_4.csv'
+#filename='summerise_junior_2.csv'
+filename='summerise_senior_2.csv'
 
-name = "Countries & Capitals"
-start_at = "2020-04-02T14:00:00.000000+05:30"
-end_at =   "2020-04-02T20:00:00.000000+05:30"
+#name = "Junior (1st to 6th Std)"
+name = "Senior (7th to 10th Std)"
 
-endpoint = 'http://localhost:8080/v1/graphql'
+start_at = "2020-04-22T14:00:00.000000+05:30"
+end_at =   "2020-04-22T20:00:00.000000+05:30"
 
-admin_secret = 'randomsecret'
+endpoint = 'https://summerise-api.shahidh.in/v1/graphql'
+
+admin_secret = 'r2y5PqTvMUwtASfL95Pw2KtWqWKqdzLVmHOUxaws8U4YF1ttYU7LU1o686CmoRNW'
 
 MUTATION="""
 mutation loadQuiz(
@@ -24,6 +27,7 @@ mutation loadQuiz(
     name: $name
     start_at: $start_at
     end_at: $end_at
+    num_qs: 25
     questions: {
       data: $questions
     }
