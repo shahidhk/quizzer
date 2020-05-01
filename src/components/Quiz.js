@@ -53,7 +53,7 @@ const Quiz = () => {
   }
 
   if (!(data && data.questions && data.questions.length > 0)) {
-    return <div>Unknown state: {data}</div>
+    return <div>Unknown state: {JSON.stringify(data)}</div>
   }
 
   const showNextQuestion = (e) => {

@@ -19,3 +19,215 @@ export const brand = {
 };
 
 export const api_url = 'https://alif-api.shahidh.in/v1/graphql';
+
+export const districts = [
+  {
+    name: 'Trivandrum',
+    areas: [
+      'Thiruvananthapuram',
+      'Thiruvananthapuram East',
+      'Kaniyapuram',
+      'Attingal',
+      'venjaramood',
+      'Nedumangad',
+      'Kattakkada'
+    ],
+  },
+  {
+    name: 'Kollam',
+    areas: [
+      'Kollam',
+      'Karunagappalli',
+      'Pathanapuram',
+    ]
+  },
+  {
+    name: 'Alappuzha',
+    areas: [
+      'Alappuzha',
+      'Naduvathu Nagar',
+      'Kayamkulam',
+      'Kuthiyathode'
+    ]
+  },
+  {
+    name: 'Kottayam',
+    areas: ['Kottayam']
+  },
+  {
+    name: 'Idukki',
+    areas: [
+      'Thodupuzha',
+      'Adimaly'
+    ]
+  },
+  {
+    name: 'Ernakulam',
+    areas: [
+      'Aluva',
+      'Perumbavoor',
+      'Kothamangalam',
+      'Paravoor',
+      'Ernakulam',
+      'Thripunithura',
+      'Kochi',
+      'Kakkanad',
+      'Palluruthi']
+  },
+  {
+    name: 'Thrissur',
+    areas: [
+      'Chavakkad',
+      'Pavaratty',
+      'Kunnamkulam',
+      'Guruvayur',
+      'Thrissur',
+      'Kodungallur',
+      'Kaipamangalam'
+    ]
+  },
+  {
+    name: 'Palakkad',
+    areas: [
+      'EDATHANATTUKARA',
+      'ALANALLUR',
+      'MANNARKKAD',
+      'THACHAMPARA',
+      'OLAVAKODE',
+      'PALAKKAD',
+      'ALATHUR',
+      'OTTAPALAM',
+      'PATTAMBI'
+    ]
+  },
+  {
+    name: 'MALAPPURAM WEST',
+    areas: [
+      'University',
+      'Peruvallur',
+      'AR Nager',
+      'Vengara',
+      'Tiroorangadi',
+      'Parappanagadi',
+      'Thanur',
+      'Thanalur',
+      'Thiroor',
+      'Kottakkal',
+      'Valavannur',
+      'Randathani',
+      'Alathiyoor',
+      'Maaranjeri',
+      'Ponnani',
+      'Koottanad',
+      'Valanjeri',
+      'Changaramkulam',
+      'Paravanna',
+      'Kuttipuram',
+    ]
+  },
+  {
+    name: 'MALAPPURAM NORTH',
+    areas: [
+      'AREEKODE',
+      'EDAVANNAPPARA',
+      'PULIKKAL',
+      'KONDOTY',
+      'MONGAM',
+      'MANJERI',
+      'ANAKKAYAM',
+      'MANKADA',
+      'TRIKALANGOD',
+      'MALAPPURAM',
+      'KAVANUR',
+      'CHERUKAV',
+    ]
+  },
+  {
+    name: 'MALAPPURAM EAST',
+    areas: [
+      'Perintalamnana',
+      'Pandikkad',
+      'Karuvarakund',
+      'Kalikavu',
+      'Wandoor',
+      'Edavanna',
+      'Othayi',
+      'Mampad',
+      'Nilamboor',
+      'Edakkara',
+      'Moothedam',
+      'Angadipuram',
+      'Aanamangad',
+      'Amarambalam',
+      'Chungathara',
+    ]
+  },
+  {
+    name: 'CALICUT SOUTH',
+    areas: [
+      'Farook',
+      'Kallai',
+      'Beypore',
+      'City',
+      'Mankav',
+      'Karapparamb',
+      'Karakkunnath',
+      'Narikuni',
+      'Atholi',
+      'Kodiyathoor',
+      'Thamarasseri',
+      'Koduvalli',
+      'Medical college',
+    ]
+  },
+  {
+    name: 'CALICUT NORTH',
+    areas: [
+      'Balusserry',
+      'Poonur',
+      'Koyilandy',
+      'Vatakara',
+      'Payyoli',
+      'Nadapuram',
+      'Perambra',
+    ]
+  },
+  {
+    name: 'WAYANAD',
+    areas: [
+      'Kalpetta',
+      'Bathery',
+      'Mananthavady',
+    ]
+  },
+  {
+    name: 'KANNUR',
+    areas: [
+      'Valapattanam',
+      'Talipparamb',
+      'Irikkoor',
+      'Pazhayangadi',
+      'Payyanur',
+      'Kannur',
+      'Koothuparamb',
+      'Iritty',
+      'Panoor',
+      'Thalassery',
+    ]
+  },
+  {
+    name: 'KASARAGOD',
+    areas: [
+      'Manjeshwaram',
+      'Kumbala',
+      'Kasaragod',
+      'Uduma',
+      'Kanhangad',
+      'Trikaripur',
+    ]
+  },
+  {
+    name: 'Other',
+    areas: ['Other']
+  }
+]

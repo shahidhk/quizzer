@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import Row from "react-bootstrap/Row";
 import Form from "react-bootstrap/Form";
@@ -10,9 +10,10 @@ import Card from "react-bootstrap/Card";
 import { useHistory } from "react-router-dom";
 
 import { GET_USER_DETAILS, UPDATE_USER_DETAILS } from '../graphql';
-import { brand } from '../constants';
+import { brand, districts } from '../constants';
 
 const Profile = () => {
+  const [areas, setAreas] = useState([]);
   let history = useHistory();
   const { loading: queryLoading, error: queryError, data } = useQuery(
     GET_USER_DETAILS,
@@ -125,12 +126,24 @@ const Profile = () => {
 
                 <Form.Group controlId="formGridDistrict">
                   <Form.Label>ജില്ല</Form.Label>
-                  <Form.Control ref={node => {userInput.district = node}} required name="district" defaultValue={user.district}/>
+                  <Form.Control ref={node => {userInput.district = node}} required name="district" defaultValue={user.district} as="select" onChange={(e)=>{
+                    setAreas(districts[districts.findIndex(f=>f.name === e.target.value)].areas);
+                  }}>
+                    <option key={0} value={0}>{'--'}</option>
+                    {districts.map((d, i)=>(
+                      <option key={i+1} value={d.name}>{d.name}</option>
+                    ))}
+                  </Form.Control>
                 </Form.Group>
 
                 <Form.Group controlId="formGridArea">
                   <Form.Label>ഏരിയ</Form.Label>
-                  <Form.Control ref={node => {userInput.area= node}} required name="area" defaultValue={user.area}/>
+                  <Form.Control ref={node => {userInput.area= node}} required name="area" defaultValue={user.area} as="select" >
+                    <option key={0} value={0}>{'--'}</option>
+                    {areas.map((a, i)=>(
+                      <option key={i+1} value={a}>{a}</option>
+                    ))}
+                  </Form.Control>
                 </Form.Group>
 
                 <Form.Group controlId="formGridSchool">

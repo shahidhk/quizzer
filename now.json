@@ -1,8 +1,8 @@
 {
   "version": 2,
   "env": {
-    "HASURA_ENDPOINT": "@hasura-endpoint",
-    "HASURA_ADMIN_SECRET": "@hasura-admin-secret",
-    "ADMIN_PASSWORD": "@admin-password"
+    "HASURA_ENDPOINT": "@alif-hasura-endpoint",
+    "HASURA_ADMIN_SECRET": "@alif-hasura-admin-secret",
+    "ADMIN_PASSWORD": "@alif-admin-password"
   }
 }
