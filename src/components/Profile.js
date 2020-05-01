@@ -139,7 +139,7 @@ const Profile = () => {
                 <Form.Group controlId="formGridArea">
                   <Form.Label>ഏരിയ</Form.Label>
                   <Form.Control ref={node => {userInput.area= node}} required name="area" defaultValue={user.area} as="select" >
-                    <option key={0} value={0}>{'--'}</option>
+                    <option key={0} value={user.area}>{user.area || '--'}</option>
                     {areas.map((a, i)=>(
                       <option key={i+1} value={a}>{a}</option>
                     ))}
