@@ -18,7 +18,7 @@ const Certificate = ({ name }) => {
       context.font = '35pt Arizonia';
       context.fillText(name, canvas.width * 0.5, canvas.height * 0.48);
 
-      aref.current.href = canvas.toDataURL();
+      aref.current.href = canvas.toDataURL("image/jpeg");
       aref.current.download = `Summerise Certificate ${name}.jpg`;
       aref.current.innerHTML = 'Download Certificate';
     };
