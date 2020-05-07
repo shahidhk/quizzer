@@ -15,7 +15,7 @@ export const brand = {
 എല്ലാവർക്കും വിജയാശംസകൾ...`,
   fail_text: 'Try later',
   win_text: `You won!`,
-  sorry_text: `Sorry, there are no exams live right now. Check back later!`,
+  sorry_text: `Sorry, there are no exams live right now. Check back later at 9am on May 10th 2020`,
 };
 
 export const api_url = 'https://alif-api.shahidh.in/v1/graphql';
