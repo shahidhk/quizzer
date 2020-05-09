@@ -9,6 +9,7 @@ import Modal from "react-bootstrap/Modal";
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { useHistory } from "react-router-dom";
 import { brand } from '../constants';
+import { LinkContainer } from "react-router-bootstrap";
 
 import {
   GET_USER_DETAILS,
@@ -73,7 +74,7 @@ const LiveQuiz = () => {
       if (quiz.scores && quiz.scores.length > 0) {
         const score = quiz.scores[0].score;
         const max = quiz.scores[0].max;
-        if (quiz.show_score) return <Link to={`/result/${quiz.id}`}><Button size="sm">Your score is {score}/{max}</Button></Link>;
+        if (quiz.show_score) return <LinkContainer to={`/result/${quiz.id}`}><Button size="sm">Your score is {score}/{max}</Button></LinkContainer>;
         return (<Button size="sm">You have submitted answers!</Button>)
       }
       // no scores for this quiz
