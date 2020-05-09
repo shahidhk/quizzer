@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Home from './components/Home';
 import Quiz from './components/Quiz';
 import Result from './components/Result';
+import CertificateAdmin from './components/CertificateAdmin';
 
 import { Router, Route, Switch } from "react-router-dom";
 import Profile from "./components/Profile";
@@ -61,6 +62,7 @@ const App = () => {
             <Route path="/profile" component={Profile} />
             <Route path="/quiz/:quizId" component={Quiz} />
             <Route path="/result/:quizId" component={Result} />
+            <Route path="/certificate" component={CertificateAdmin} />
           </Switch>
         </Router>
       </div>
