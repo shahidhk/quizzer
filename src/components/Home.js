@@ -7,7 +7,7 @@ import "../App.css";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { brand } from '../constants';
 import { LinkContainer } from "react-router-bootstrap";
 import { useAuth0 } from "../react-auth0-spa";
@@ -32,9 +32,14 @@ export const dontHaveCompleteProfile = (user) => {
     user.residential_district == null
    )
 }
-
+const useQueryParam = () => {
+  return new URLSearchParams(useLocation().search);
+}
 const Home = () => {
-  const { isAuthenticated, loginWithRedirect } = useAuth0(); 
+
+  const qp = useQueryParam();
+  
+  const { isAuthenticated, loginWithRedirect, logout } = useAuth0(); 
   const { data, loading, error } = useQuery(GET_USER_DETAILS, {fetchPolicy: 'network-only'});
   let history = useHistory();
 
@@ -65,6 +70,24 @@ const Home = () => {
     history.push('profile');
   }
 
+  const errorOrSuccess = () => {
+    console.log({ qp })
+    if (qp.get('error') && qp.get('error_description')) {
+      return (<div>
+        <span style={{fontSize: '1.5em'}}>{qp.get('error')}: {qp.get('error_description')}</span>
+        <Button onClick={() => logout({returnTo: window.location.origin})}>Log out</Button>
+      </div>)
+
+    } else {
+      return (<div >
+        {!isAuthenticated && (
+          <Button onClick={() => loginWithRedirect({})}>Log In</Button>
+        )}
+        {isAuthenticated && (<LiveQuiz />)}
+      </div>)
+    }
+  }
+
   return (
     <Container fluid>
       <Row className="customCenter fullHeight">
@@ -74,12 +97,7 @@ const Home = () => {
         <Col className="customCenter contentContainer">
           <h3 className="blue">{brand.title}</h3>
           <p>{brand.description}</p>
-          <div >
-            {!isAuthenticated && (
-              <Button onClick={() => loginWithRedirect({})}>Log In</Button>
-            )}
-            {isAuthenticated && (<LiveQuiz />)}
-          </div>
+          {errorOrSuccess()}
         </Col>
       </Row>
     </Container>
