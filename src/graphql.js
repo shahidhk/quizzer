@@ -3,12 +3,12 @@ import gql from 'graphql-tag';
 export const GET_USER_DETAILS = gql`query getUserDetails {
   users {
     id
-    country 
     mobile
     name
-    class
-    school
+    course
+    campus
     address
+    gender
   }
 }`;
 

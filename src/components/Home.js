@@ -10,6 +10,7 @@ import { useQuery, useMutation } from '@apollo/react-hooks';
 import { useHistory } from "react-router-dom";
 import { brand } from '../constants';
 import { LinkContainer } from "react-router-bootstrap";
+import { useAuth0 } from "../react-auth0-spa";
 
 import {
   GET_USER_DETAILS,
@@ -18,6 +19,7 @@ import {
 } from '../graphql';
 
 const Home = () => {
+  const { isAuthenticated, loginWithRedirect } = useAuth0(); 
   const { data, loading, error } = useQuery(GET_USER_DETAILS, {fetchPolicy: 'network-only'});
   let history = useHistory();
 
@@ -25,7 +27,7 @@ const Home = () => {
     return <div>Loading...</div>
   }
 
-  if (error) {
+  if (error && isAuthenticated) {
     console.error({ error })
     return <div>Error! Please refresh!</div>
   }

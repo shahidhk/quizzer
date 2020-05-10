@@ -17,7 +17,7 @@
     using:
       foreign_key_constraint_on: quiz_id
   insert_permissions:
-  - role: anonymous
+  - role: user
     permission:
       check:
         _and:
@@ -41,7 +41,7 @@
     using:
       foreign_key_constraint_on: question_id
   select_permissions:
-  - role: anonymous
+  - role: user
     permission:
       columns:
       - id
@@ -73,7 +73,7 @@
           schema: public
           name: options
   select_permissions:
-  - role: anonymous
+  - role: user
     permission:
       columns:
       - id
@@ -109,7 +109,7 @@
           schema: public
           name: scores
   select_permissions:
-  - role: anonymous
+  - role: user
     permission:
       columns:
       - id
@@ -126,7 +126,7 @@
     using:
       foreign_key_constraint_on: quiz_id
   select_permissions:
-  - role: anonymous
+  - role: user
     permission:
       columns:
       - max
@@ -155,7 +155,7 @@
     using:
       foreign_key_constraint_on: quiz_id
   select_permissions:
-  - role: anonymous
+  - role: user
     permission:
       columns:
       - question_id
@@ -195,7 +195,7 @@
           quiz_id: quiz_id
           user_id: user_id
   insert_permissions:
-  - role: anonymous
+  - role: user
     permission:
       check:
         _and:
@@ -207,7 +207,7 @@
       columns:
       - quiz_id
   select_permissions:
-  - role: anonymous
+  - role: user
     permission:
       columns:
       - created_at
@@ -222,7 +222,7 @@
     schema: public
     name: users
   insert_permissions:
-  - role: anonymous
+  - role: user
     permission:
       check:
         id:
@@ -237,7 +237,7 @@
       - name
       - school
   select_permissions:
-  - role: anonymous
+  - role: user
     permission:
       columns:
       - class
@@ -252,7 +252,7 @@
         id:
           _eq: X-Hasura-Session-Id
   update_permissions:
-  - role: anonymous
+  - role: user
     permission:
       columns:
       - class
