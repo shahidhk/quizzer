@@ -60,7 +60,7 @@ module.exports = (req, res) => {
     },
   });
 
-  client.request(updateOtp, { otp: body, mobile: `${recipient.replace('+91', '')}` }).then((data) => {
+  client.request(updateUserOtp, { otp: body, mobile: `${recipient.replace('+91', '')}` }).then((data) => {
     const getOpts = {
       hostname: 'msgbox.theparentalert.com',
       port: 80,
