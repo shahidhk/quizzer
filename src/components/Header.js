@@ -1,12 +1,14 @@
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
+import Button from 'react-bootstrap/Button';
+import { useAuth0 } from "../react-auth0-spa";
 import { LinkContainer } from "react-router-bootstrap";
-import NewSession from './NewSession';
-
 import { brand } from '../constants';
 
+
 const Header = () => {
+  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
   return (
     <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
       <Navbar.Brand href="#">
@@ -22,15 +24,20 @@ const Header = () => {
         <Nav className="mr-auto">
         </Nav>
         <Nav>
-          <>
-            <LinkContainer to="/">
-              <Nav.Link>Home</Nav.Link>
-            </LinkContainer>
-            <LinkContainer to="/profile">
-              <Nav.Link>Profile</Nav.Link>
-            </LinkContainer>
-            <NewSession />
-          </>
+          {isAuthenticated && (
+            <>
+              <LinkContainer to="/">
+                <Nav.Link>Home</Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/profile">
+                <Nav.Link>Profile</Nav.Link>
+              </LinkContainer>
+            </>
+          )}
+          {!isAuthenticated && (
+            <Button onClick={() => loginWithRedirect({})}>Log In</Button>
+          )}
+          {isAuthenticated && <Button onClick={() => logout({returnTo: window.location.origin})}>Log out</Button>}
         </Nav>
       </Navbar.Collapse>
     </Navbar>

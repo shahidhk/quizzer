@@ -6,7 +6,7 @@ const JWT_SECRET = process.env.SMS_JWT_SECRET;
 const SMS_SECRET = process.env.SMS_API_SECRET;
 
 const HASURA_ENDPOINT = process.env.HASURA_ENDPOINT;
-const HASURA_SECRET = proecess.env.HASURA_SECRET;
+const HASURA_SECRET = process.env.HASURA_SECRET;
 
 const SMS_SENDER_ID = 'PRFCON';
 
