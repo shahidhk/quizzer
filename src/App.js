@@ -38,7 +38,7 @@ const App = () => {
   });
 
   const httpLink = createHttpLink({
-    uri: 'https://albayan-api.wisdomislam.org/v1/graphql'
+    uri: 'https://albayan-api.shahidh.in/v1/graphql'
   })
 
   const createApolloClient = () => {

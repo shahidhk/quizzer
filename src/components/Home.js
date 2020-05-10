@@ -50,8 +50,12 @@ const Home = () => {
         <Col className="customCenter contentContainer">
           <h3 className="blue">{brand.title}</h3>
           <p>{brand.description}</p>
-          { !hasProfile && (<Button onClick={handleStart}>Start</Button>) }
-          { hasProfile && (<LiveQuiz />) }
+          <div >
+            {!isAuthenticated && (
+              <Button onClick={() => loginWithRedirect({})}>Log In</Button>
+            )}
+            {isAuthenticated && (<LiveQuiz />)}
+          </div>
         </Col>
       </Row>
     </Container>

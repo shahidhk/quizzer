@@ -5,10 +5,15 @@ export const GET_USER_DETAILS = gql`query getUserDetails {
     id
     mobile
     name
+    email
     course
     campus
-    address
+    residential_address
     gender
+    campus_district
+    year
+    residential_district
+    whatsapp_number
   }
 }`;
 

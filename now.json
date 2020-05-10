@@ -4,6 +4,8 @@
 		"SMS_JWT_SECRET": "@albayan_sms_jwt_secret",
 		"SMS_API_SECRET": "@albayan_sms_api_secret",
 		"HASURA_ENDPOINT": "@albayan_hasura_endpoint",
-		"HASURA_SECRET": "@albayan_hasura_admin_secret"
+		"HASURA_SECRET": "@albayan_hasura_admin_secret",
+		"HASURA_ADMIN_SECRET": "@albayan_hasura_admin_secret",
+		"ADMIN_PASSWORD": "@albayan_admin_password"
 	}
 }
