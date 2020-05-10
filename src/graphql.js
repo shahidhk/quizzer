@@ -30,39 +30,47 @@ export const GET_QUIZ = gql`query getQuiz {
 }`;
 
 export const UPDATE_USER_DETAILS = gql`mutation upsertUserDetails(
-    $country: String!
-    $mobile: String!
+    $id: String!
     $name: String!
-    $class: smallint!
-    $school: String!
-    $address: String!
+    $email: String!
+    $course: String!
+    $campus: String!
+    $residential_address: String!
+    $gender: String!
+    $campus_district: String!
+    $year: String!
+    $residential_district: String!
+    $whatsapp_number: String!
   ) {
-  users: insert_users(objects: {
-    name: $name
-    class: $class
-    country: $country
-    mobile: $mobile
-    address: $address
-    school: $school
-  }, on_conflict: {
-    constraint: users_pkey,
-    update_columns: [
-      address
-      class
-      country 
-      mobile
-      name
-      school
-    ]
-  }) {
+  users: update_users(
+    where: { id: { _eq: $id }}
+    _set: {
+      name: $name
+      email: $email
+      course: $course
+      campus: $campus
+      residential_address: $residential_address
+      gender: $gender
+      campus_district: $campus_district
+      year: $year
+      residential_district: $residential_address
+      whatsapp_number: $whatsapp_number
+    }
+  ) {
     affected_rows
     returning {
-      name
+      id
       mobile
-      class
-      address
-      country 
-      school
+      name
+      email
+      course
+      campus
+      residential_address
+      gender
+      campus_district
+      year
+      residential_district
+      whatsapp_number
     }
   }
 }`;

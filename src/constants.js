@@ -1,5 +1,5 @@
 export const brand = {
-  title: 'Albayan',
+  title: 'Al Bayan Online Quran Contest',
   description: '',
   image_url: '/logo.png',
   navbar_logo_url: '/navbar_logo.png',

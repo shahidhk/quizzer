@@ -11,6 +11,7 @@ import { useHistory } from "react-router-dom";
 
 import { GET_USER_DETAILS, UPDATE_USER_DETAILS } from '../graphql';
 import { brand } from '../constants';
+import { dontHaveCompleteProfile } from './Home';
 
 const Profile = () => {
   let history = useHistory();
@@ -25,7 +26,7 @@ const Profile = () => {
     onCompleted: (data) => {
       if (data && data.users.returning.length > 0) {
         const user = data.users.returning[0];
-        if (user.name != null && user.class != null && user.mobile != null && user.school != null && user.address != null && user.country != null) {
+        if (!dontHaveCompleteProfile(user)) {
           alert("Profile updated! Let's go to questions!");
           window.setTimeout(()=>{history.push('')}, 1000);
         } else {
@@ -53,11 +54,15 @@ const Profile = () => {
   if (!(data && data.users && data.users.length > 0)) {
     user = {
       name: null,
-      mobile: null,
-      class: null,
-      country: null,
-      school: null,
-      address: null
+      email: null,
+      course: null,
+      campus: null,
+      residential_address: null,
+      gender: null,
+      campus_district: null,
+      year: null,
+      residential_district: null,
+      whatsapp_number: null,
     };
   } else {
     user = data.users[0];
@@ -65,22 +70,31 @@ const Profile = () => {
 
   let userInput = {
     name: null,
-    mobile: null,
-    class: null,
-    country: null,
-    school: null,
-    address: null
+    email: null,
+    course: null,
+    campus: null,
+    residential_address: null,
+    gender: null,
+    campus_district: null,
+    year: null,
+    residential_district: null,
+    whatsapp_number: null,
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     updateUser({ variables: {
-      mobile: userInput.mobile.value,
+      id: user.id,
       name: userInput.name.value,
-      class: userInput.class.value,
-      country: userInput.country.value,
-      school: userInput.school.value,
-      address: userInput.address.value
+      email: userInput.email.value,
+      course: userInput.course.value,
+      campus: userInput.campus.value,
+      residential_address: userInput.residential_address.value,
+      gender: userInput.gender.value,
+      campus_district: userInput.campus_district.value,
+      year: userInput.year.value,
+      residential_district: userInput.residential_address.value,
+      whatsapp_number: userInput.whatsapp_number.value,
     }})
 
   }
@@ -97,41 +111,63 @@ const Profile = () => {
             <Card.Body>
               <Form onSubmit={handleSubmit}>
 
+                <Form.Group controlId="formGridMobile">
+                  <Form.Label>Mobile</Form.Label>
+                  <Form.Control disabled required name="mobile" defaultValue={user.mobile}/>
+                </Form.Group>
+
                 <Form.Group controlId="formGridName">
                   <Form.Label>Name</Form.Label>
                   <Form.Control ref={node => {userInput.name = node}} required name="name" defaultValue={user.name}/>
                 </Form.Group>
 
-                <Form.Group controlId="formGridMobile">
-                  <Form.Label>Mobile</Form.Label>
-                  <Form.Control ref={node => {userInput.mobile = node}} required name="mobile" defaultValue={user.mobile} />
+                <Form.Group controlId="formGridEmail">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control ref={node => {userInput.email = node}} required name="email" defaultValue={user.email}/>
                 </Form.Group>
 
-                <Form.Group controlId="formGridAddress">
-                  <Form.Label>Address</Form.Label>
-                  <Form.Control ref={node => {userInput.address= node}} required name="address" defaultValue={user.address}/>
-                </Form.Group>
-
-                <Form.Group controlId="formGridSchool">
-                  <Form.Label>School</Form.Label>
-                  <Form.Control ref={node => {userInput.school = node}} required name="school" defaultValue={user.school}/>
-                </Form.Group>
-                
-                <Form.Group controlId="formGridCountry">
-                  <Form.Label>Country</Form.Label>
-                  <Form.Control ref={node => {userInput.country = node}} required name="country" defaultValue={user.country} />
-                </Form.Group>
-
-                <Form.Group controlId="formGridClass">
-                  <Form.Label>Class</Form.Label>
-                  <Form.Control ref={node => {userInput.class= node}} required name="class" defaultValue={user.class} as="select">
-                    <option key={0} value={0}>{'--'}</option>
-                    {[ ...Array(10).keys() ].map( (i) => (
-                      <option key={i+1} value={i+1}>{i+1}</option>
-                    ))}
+                <Form.Group controlId="formGridGender">
+                  <Form.Label>Gender</Form.Label>
+                  <Form.Control ref={node => {userInput.gender = node}} required name="gender" defaultValue={user.gender} as="select">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
                   </Form.Control>
                 </Form.Group>
 
+                <Form.Group controlId="formGridcampus">
+                  <Form.Label>Campus</Form.Label>
+                  <Form.Control ref={node => {userInput.campus = node}} required name="campus" defaultValue={user.campus}/>
+                </Form.Group>
+
+                <Form.Group controlId="formGridcampus_district">
+                  <Form.Label>Campus District</Form.Label>
+                  <Form.Control ref={node => {userInput.campus_district = node}} required name="campus_district" defaultValue={user.campus_district}/>
+                </Form.Group>
+
+                <Form.Group controlId="formGridcourse">
+                  <Form.Label>Course</Form.Label>
+                  <Form.Control ref={node => {userInput.course = node}} required name="course" defaultValue={user.course}/>
+                </Form.Group>
+
+                <Form.Group controlId="formGridyear">
+                  <Form.Label>Year</Form.Label>
+                  <Form.Control ref={node => {userInput.year = node}} required name="year" defaultValue={user.year}/>
+                </Form.Group>
+
+                <Form.Group controlId="formGridresidential_address">
+                  <Form.Label>Residential Address</Form.Label>
+                  <Form.Control ref={node => {userInput.residential_address = node}} required name="residential_address" defaultValue={user.residential_address}/>
+                </Form.Group>
+
+                <Form.Group controlId="formGridresidential_district">
+                  <Form.Label>Residential District</Form.Label>
+                  <Form.Control ref={node => {userInput.residential_district = node}} required name="residential_district" defaultValue={user.residential_district}/>
+                </Form.Group>
+
+                <Form.Group controlId="formGridwhatsapp_number">
+                  <Form.Label>WhatsApp number</Form.Label>
+                  <Form.Control ref={node => {userInput.whatsapp_number = node}} name="whatsapp_number" defaultValue={user.whatsapp_number}/>
+                </Form.Group>
 
                 <Button variant="primary" type="submit">
                   {!mutationLoading && 'Save'}

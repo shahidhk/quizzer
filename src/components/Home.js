@@ -18,6 +18,21 @@ import {
   START_QUIZ,
 } from '../graphql';
 
+export const dontHaveCompleteProfile = (user) => {
+  return (
+    user.mobile == null ||
+    user.name == null ||
+    user.email == null ||
+    user.course == null ||
+    user.campus == null ||
+    user.residential_address == null ||
+    user.gender == null ||
+    user.campus_district == null ||
+    user.year == null ||
+    user.residential_district == null
+   )
+}
+
 const Home = () => {
   const { isAuthenticated, loginWithRedirect } = useAuth0(); 
   const { data, loading, error } = useQuery(GET_USER_DETAILS, {fetchPolicy: 'network-only'});
@@ -35,6 +50,15 @@ const Home = () => {
   let hasProfile = false;
   if (data && data.users.length > 0) {
     hasProfile = true;
+  }
+  if (data && data.users && data.users.length > 0) {
+    const user = data.users[0];
+    if (dontHaveCompleteProfile(user) && isAuthenticated) {
+      window.setTimeout(()=>{
+        history.push('/profile');
+      }, 1000)
+      return (<div>Redirecting to profile... <a href="/profile">Click here</a> if you're redirectd automatically.</div>);
+    }
   }
 
   const handleStart = () => {
