@@ -6,7 +6,6 @@ import Image from 'react-bootstrap/Image';
 import done from '../images/done.png';
 import '../App.css';
 import { brand } from '../constants';
-import Certificate from './Certificate';
 
 const Neutral = ({score, max, name, showScore}) => (
   <Container fluid>
@@ -15,7 +14,6 @@ const Neutral = ({score, max, name, showScore}) => (
         <Image src={done} rounded className="imageDone" fluid />
         { showScore && <h5 className="m-t-1">Your score: {score}/{max}</h5> }
         <p dangerouslySetInnerHTML={{ __html: brand.neutral_text}}></p>
-        <Certificate name={name} style={{marginTop: '10px'}}/> <br/>
       </Col>
     </Row>
   </Container>
