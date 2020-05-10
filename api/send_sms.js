@@ -1,5 +1,6 @@
 var jwt = require('jsonwebtoken');
 const http = require('http');
+const { GraphQLClient } = require('graphql-request')
 
 const JWT_SECRET = process.env.SMS_JWT_SECRET;
 const SMS_SECRET = process.env.SMS_API_SECRET;
@@ -13,6 +14,15 @@ const subject = 'urn:Auth0'
 const audience = 'urn:QberrySmsGateway'
 
 const TOKEN_SCHEME = 'Bearer ';
+
+const updateUserOtp = `mutation updateUserOtp($otp: String!, $mobile: String!) {
+  update_users(
+    where:{mobile: {_eq: $mobile}}
+    _set: {otp: $otp}
+  ) {
+    affected_rows
+  }
+}`;
 
 module.exports = (req, res) => {
   try {
@@ -35,35 +45,51 @@ module.exports = (req, res) => {
     return;
   }
 
+  const updateOtp = {
+    hostname: 'albayan-api.shahidh.in'
+  }
+
   const { recipient, body } = req.body;
 
   console.log('recipient: ', recipient);
   console.log('body: ', body);
 
-  const getOpts = {
-    hostname: 'msgbox.theparentalert.com',
-    port: 80,
-    path: `/api/sms/format/xml/key/${SMS_SECRET}/method/MT/mobile/${recipient.replace('+91','')}/sender/${SMS_SENDER_ID}/route/TL/text/${body.split(' ').join('+')}`,
-    method: 'GET'
-  }
-  
-  const r = http.request(getOpts, s => {
-    console.log(`statusCode: ${s.statusCode}`)
-  
-    s.on('data', d => {
-      process.stdout.write(d)
-      res.status(200).send('Done!');
+  const client = new GraphQLClient(HASURA_ENDPOINT, {
+    headers: {
+      'x-hasura-admin-secret': HASURA_SECRET,
+    },
+  });
+
+  client.request(updateOtp, { otp: body, mobile: `${recipient.replace('+91', '')}` }).then((data) => {
+    const getOpts = {
+      hostname: 'msgbox.theparentalert.com',
+      port: 80,
+      path: `/api/sms/format/xml/key/${SMS_SECRET}/method/MT/mobile/${recipient.replace('+91', '')}/sender/${SMS_SENDER_ID}/route/TL/text/${body.split(' ').join('+')}`,
+      method: 'GET'
+    }
+
+    const r = http.request(getOpts, s => {
+      console.log(`statusCode: ${s.statusCode}`)
+
+      s.on('data', d => {
+        process.stdout.write(d)
+        res.status(200).send('Done!');
+        return;
+      })
+    })
+
+    r.on('error', error => {
+      console.error('sms api error: ', error);
+      res.status(500).send('Internal server error');
       return;
     })
+
+    r.end()
+  }).catch(err => {
+    console.log(err.response.errors) // GraphQL response errors
+    console.log(err.response.data) // Response data if available
   })
-  
-  r.on('error', error => {
-    console.error('sms api error: ', error);
-    res.status(500).send('Internal server error');
-    return;
-  })
-  
-  r.end()
+
 }
 
 /*
