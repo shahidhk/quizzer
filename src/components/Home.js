@@ -145,7 +145,7 @@ const LiveQuiz = () => {
 
   if (data && data.quiz && data.quiz.length === 0) {
     // we don't have a quiz
-    return <div>Exam will start at 2pm on May 9th 2020. Check back later!</div>
+    return <div>Exam will start at 10am on May 11th. Check back later!</div>
   }
 }
 
