@@ -16,9 +16,15 @@ const audience = 'urn:QberrySmsGateway'
 const TOKEN_SCHEME = 'Bearer ';
 
 const updateUserOtp = `mutation updateUserOtp($otp: String!, $mobile: String!) {
-  update_users(
-    where:{mobile: {_eq: $mobile}}
-    _set: {otp: $otp}
+  insert_users(
+    objects:{
+      mobile: $mobile
+      otp: $otp
+    }
+    on_conflict: {
+      constraint: users_mobile_key
+      update_columns: [otp]
+    }
   ) {
     affected_rows
   }
