@@ -25,11 +25,11 @@ const Profile = () => {
     onCompleted: (data) => {
       if (data && data.users.returning.length > 0) {
         const user = data.users.returning[0];
-        if (user.name != null && user.class != null && user.mobile != null && user.school != null && user.address != null) {
+        if (user.name != null && user.mobile != null && user.course_occupation != null && user.address != null) {
           alert("Profile updated! Let's go to questions!");
           window.setTimeout(()=>{history.push('')}, 1000);
         } else {
-          alert('Please fill mobile number, name, address, school and class!');
+          alert('Please fill mobile number, name, address, course_occupation and class!');
         }
       }
     },
@@ -54,9 +54,8 @@ const Profile = () => {
     user = {
       name: null,
       mobile: null,
-      class: null,
       email: null,
-      school: null,
+      course_occupation: null,
       address: null
     };
   } else {
@@ -66,9 +65,8 @@ const Profile = () => {
   let userInput = {
     name: null,
     mobile: null,
-    class: null,
     email: null,
-    school: null,
+    course_occupation: null,
     address: null
   };
 
@@ -77,9 +75,8 @@ const Profile = () => {
     updateUser({ variables: {
       mobile: userInput.mobile.value,
       name: userInput.name.value,
-      class: userInput.class.value,
       email: userInput.email.value,
-      school: userInput.school.value,
+      course_occupation: userInput.course_occupation.value,
       address: userInput.address.value
     }})
 
@@ -109,29 +106,18 @@ const Profile = () => {
 
                 <Form.Group controlId="formGridEmail">
                   <Form.Label>Email</Form.Label>
-                  <Form.Control ref={node => {userInput.email = node}} required name="email" defaultValue={user.email} />
+                  <Form.Control ref={node => {userInput.email = node}} type="email" required name="email" defaultValue={user.email} />
                 </Form.Group>
 
                 <Form.Group controlId="formGridAddress">
-                  <Form.Label>Address</Form.Label>
+                  <Form.Label>Place</Form.Label>
                   <Form.Control ref={node => {userInput.address= node}} required name="address" defaultValue={user.address}/>
                 </Form.Group>
 
                 <Form.Group controlId="formGridSchool">
-                  <Form.Label>School</Form.Label>
-                  <Form.Control ref={node => {userInput.school = node}} required name="school" defaultValue={user.school}/>
+                  <Form.Label>Course/Occupation</Form.Label>
+                  <Form.Control ref={node => {userInput.course_occupation = node}} required name="course_occupation" defaultValue={user.course_occupation}/>
                 </Form.Group>
-
-                <Form.Group controlId="formGridClass">
-                  <Form.Label>Class</Form.Label>
-                  <Form.Control ref={node => {userInput.class= node}} required name="class" defaultValue={user.class} as="select">
-                    <option key={0} value={0}>{'--'}</option>
-                    {[ ...Array(10).keys() ].map( (i) => (
-                      <option key={i+1} value={i+1}>{i+1}</option>
-                    ))}
-                  </Form.Control>
-                </Form.Group>
-
 
                 <Button variant="primary" type="submit">
                   {!mutationLoading && 'Save'}

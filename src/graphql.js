@@ -6,8 +6,7 @@ export const GET_USER_DETAILS = gql`query getUserDetails {
     email
     mobile
     name
-    class
-    school
+    course_occupation 
     address
   }
 }`;
@@ -28,36 +27,32 @@ export const UPDATE_USER_DETAILS = gql`mutation upsertUserDetails(
     $email: String
     $mobile: String!
     $name: String!
-    $class: smallint!
-    $school: String!
+    $course_occupation: String!
     $address: String!
   ) {
   users: insert_users(objects: {
     name: $name
-    class: $class
     email: $email
     mobile: $mobile
     address: $address
-    school: $school
+    course_occupation: $course_occupation
   }, on_conflict: {
     constraint: users_pkey,
     update_columns: [
       address
-      class
       email
       mobile
       name
-      school
+      course_occupation
     ]
   }) {
     affected_rows
     returning {
       name
       mobile
-      class
       address
       email
-      school
+      course_occupation
     }
   }
 }`;
