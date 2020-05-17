@@ -46,7 +46,7 @@ const Home = () => {
         </Col>
         <Col className="customCenter contentContainer">
           <h3 className="blue">{brand.title}</h3>
-          <p>{brand.description}</p>
+          <div dangerouslySetInnerHTML={{__html: brand.description}}></div>
           { !hasProfile && (<Button onClick={handleStart}>Start</Button>) }
           { hasProfile && (<LiveQuiz />) }
         </Col>

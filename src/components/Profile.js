@@ -88,10 +88,10 @@ const Profile = () => {
   return (
     <Container fluid>
       <Row className="customCenter fullHeight">
-        <Col sm={12} lg={5} className="d-none d-lg-block">
+        <Col sm={12} lg={7} className="d-none d-lg-block">
           <Image src={brand.image_url} rounded className="image" fluid />
         </Col>
-        <Col sm={12} lg={7} className="customCenter contentContainer">
+        <Col sm={12} lg={5} className="customCenter contentContainer">
           <Card>
             <Card.Header as="h4">Profile</Card.Header>
             <Card.Body>
