@@ -1,8 +1,6 @@
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import { LinkContainer } from "react-router-bootstrap";
-import NewSession from './NewSession';
 
 import { brand } from '../constants';
 
@@ -23,13 +21,6 @@ const Header = () => {
         </Nav>
         <Nav>
           <>
-            <LinkContainer to="/">
-              <Nav.Link>Home</Nav.Link>
-            </LinkContainer>
-            <LinkContainer to="/profile">
-              <Nav.Link>Profile</Nav.Link>
-            </LinkContainer>
-            <NewSession />
           </>
         </Nav>
       </Navbar.Collapse>

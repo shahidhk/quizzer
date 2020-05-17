@@ -1,12 +1,8 @@
 import React from 'react';
 import './App.css';
 import Header from './components/Header';
-import Home from './components/Home';
-import Quiz from './components/Quiz';
-import Result from './components/Result';
 
 import { Router, Route, Switch } from "react-router-dom";
-import Profile from "./components/Profile";
 import history from "./utils/history";
 
 import ApolloClient from 'apollo-client';
@@ -17,6 +13,8 @@ import { ApolloProvider } from '@apollo/react-hooks';
 
 import { getSessionId, createSessionId } from './localstorage';
 import { api_url } from './constants';
+import Certificate from './components/Certificate';
+import CertificateAdmin from './components/CertificateAdmin';
 
 
 const App = () => {
@@ -30,7 +28,6 @@ const App = () => {
       headers: {
         ...headers,
         'x-hasura-role': 'anonymous',
-        'x-hasura-session-id': sessionId,
       }
     }
   });
@@ -57,11 +54,8 @@ const App = () => {
             <Header />
           </header>
           <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/home" exact component={Home} />
-            <Route path="/profile" component={Profile} />
-            <Route path="/quiz/:quizId" component={Quiz} />
-            <Route path="/result/:quizId" component={Result} />
+            <Route path="/" exact component={Certificate} />
+            <Route path="/admin" exact component={CertificateAdmin} />
           </Switch>
         </Router>
       </div>
