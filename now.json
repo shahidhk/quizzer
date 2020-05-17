@@ -1,8 +1,8 @@
 {
   "version": 2,
   "env": {
-    "HASURA_ENDPOINT": "@hasura-endpoint",
-    "HASURA_ADMIN_SECRET": "@hasura-admin-secret",
-    "ADMIN_PASSWORD": "@admin-password"
+    "HASURA_ENDPOINT": "@suaal-hasura-endpoint",
+    "HASURA_ADMIN_SECRET": "@suaal-hasura-admin-secret",
+    "ADMIN_PASSWORD": "@suaal-admin-password"
   }
 }
