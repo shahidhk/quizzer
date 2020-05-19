@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import Row from "react-bootstrap/Row";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import {Image as Im} from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import { gql } from "apollo-boost";
@@ -54,7 +55,7 @@ const Certificate = () => {
           context.fillStyle = "black";
           context.textBaseline = 'middle';
           context.textAlign = 'center';
-          context.font = '35pt "Times New Roman", Times, serif';
+          context.font = '35pt Elmessiri, "Times New Roman", Times, serif';
           context.fillText(name, canvas.width * 0.35, canvas.height * 0.57);
 
           downloadBtnRef.current.href = canvas.toDataURL("image/jpeg");
@@ -73,9 +74,10 @@ const Certificate = () => {
 
   return (
     <Container fluid>
+      <span style={{fontFamily: 'Elmessiri', display: 'none'}}>Placeholder to load font</span>
       <Row className="customCenter fullHeight">
         <Col sm={12} lg={5} >
-          <h2>Quran Time Quiz Certificate</h2>
+          <Im src="/logo.png" rounded style={{paddingBottom: '50px'}} responsive/>
           <br/>
           <Form onSubmit={getCertificate}>
             <Form.Group as={Row} controlId="formPlaintextName">

@@ -31,7 +31,7 @@ const CertificateAdmin = () => {
         context.fillStyle = "black";
         context.textBaseline = 'middle';
         context.textAlign = 'center';
-        context.font = '35pt "Times New Roman", Times, serif';
+        context.font = '35pt Elmessiri, "Times New Roman", Times, serif';
         context.fillText(name, canvas.width * 0.35, canvas.height * 0.57);
 
         downloadBtnRef.current.href = canvas.toDataURL("image/jpeg");
@@ -67,15 +67,6 @@ const CertificateAdmin = () => {
               </Form.Label>
               <Col sm="9">
                 <Form.Control ref={nameRef} type="text" required />
-              </Col>
-            </Form.Group>
-
-            <Form.Group as={Row} controlId="formPlaintextPlace">
-              <Form.Label column sm="3">
-                Place
-              </Form.Label>
-              <Col sm="9">
-                <Form.Control ref={placeRef} type="text" required />
               </Col>
             </Form.Group>
 
