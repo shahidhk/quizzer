@@ -77,7 +77,7 @@ const Certificate = () => {
       <span style={{fontFamily: 'Elmessiri', display: 'none'}}>Placeholder to load font</span>
       <Row className="customCenter fullHeight">
         <Col sm={12} lg={5} >
-          <Im src="/logo.png" rounded style={{paddingBottom: '50px'}} responsive/>
+          <Im src="/logo.png" rounded style={{paddingBottom: '50px'}} fluid/>
           <br/>
           <Form onSubmit={getCertificate}>
             <Form.Group as={Row} controlId="formPlaintextName">
