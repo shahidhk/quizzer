@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import Header from './components/Header';
 
-import { Router, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch, Redirect } from "react-router-dom";
 import history from "./utils/history";
 
 import ApolloClient from 'apollo-client';
@@ -54,7 +54,7 @@ const App = () => {
             <Header />
           </header>
           <Switch>
-            <Route path="/" exact component={Certificate} />
+            <Route path="/certificate" exact component={Certificate} />
             <Route path="/admin" exact component={CertificateAdmin} />
           </Switch>
         </Router>

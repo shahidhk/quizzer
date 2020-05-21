@@ -8,15 +8,20 @@ import Container from "react-bootstrap/Container";
 import { gql } from "apollo-boost";
 import { useApolloClient } from '@apollo/react-hooks';
 
-const GET_WINNER = gql`
-  query getWinnerDetails($mobile: String!) {
- 		winner(where: {mobile: {_ilike: $mobile}}) {
-      mobile
-      name
-      place
-    }
+const INSERT_PARTICIPANT = gql`
+mutation insertParticipant(
+  $name: String!
+  $place: String!
+  $mobile: String!
+) {
+  insert_paricipation_cert(objects:{
+    mobile: $mobile
+    place: $place
+    name: $name 
+  }) {
+    affected_rows
   }
-`;
+}`;
 
 const Certificate = () => {
   const nameRef = useRef()
@@ -30,44 +35,38 @@ const Certificate = () => {
 
   const getCertificate = (e) => {
     e.preventDefault()
-    const mobile = mobileRef.current.value
-    client.query({
-      query: GET_WINNER,
+    client.mutate({
+      mutation: INSERT_PARTICIPANT,
       variables: {
-        mobile: `%${mobile.substr(mobile.length - 8)}`
+        mobile: mobileRef.current.value,
+        name: nameRef.current.value,
+        place: placeRef.current.value,
       },
-      fetchPolicy: 'network-only'
-    }).then( data => {
-      if (data.data.winner.length === 1) {
-        // we have an item
-        const name = nameRef.current.value;
-        submitBtnRef.current.classList.add("btn-light")
-        downloadBtnRef.current.classList.remove('btn-light')
-        downloadBtnRef.current.classList.add('btn-success')
-        downloadBtnRef.current.innerHTML = 'Generating Certificate...';
-        let canvas = canvasRef.current;
-        let context = canvas.getContext('2d');
-        var img = new Image();
-        img.onload = () => {
-          canvas.width = img.width;
-          canvas.height = img.height;
-          context.drawImage(img, 0, 0);
-          context.fillStyle = "black";
-          context.textBaseline = 'middle';
-          context.textAlign = 'center';
-          context.font = '35pt Elmessiri, "Times New Roman", Times, serif';
-          context.fillText(name, canvas.width * 0.35, canvas.height * 0.57);
+    }).then(data => {
+      const name = nameRef.current.value;
+      submitBtnRef.current.classList.add("btn-light")
+      downloadBtnRef.current.classList.remove('btn-light')
+      downloadBtnRef.current.classList.add('btn-success')
+      downloadBtnRef.current.innerHTML = 'Generating Certificate...';
+      let canvas = canvasRef.current;
+      let context = canvas.getContext('2d');
+      var img = new Image();
+      img.onload = () => {
+        canvas.width = img.width;
+        canvas.height = img.height;
+        context.drawImage(img, 0, 0);
+        context.fillStyle = "black";
+        context.textBaseline = 'middle';
+        context.textAlign = 'center';
+        context.font = '35pt Elmessiri, "Times New Roman", Times, serif';
+        context.fillText(name, canvas.width * 0.5, canvas.height * 0.53);
 
-          downloadBtnRef.current.href = canvas.toDataURL("image/jpeg");
-          downloadBtnRef.current.download = `Quran Time Certificate ${name}.jpg`;
-          downloadBtnRef.current.innerHTML = 'Download Certificate';
-        };
-        img.src = '/quran_quiz_certificate.jpg';
-
-      } else {
-        alert('not found')
-      }
-    }).catch( error => {
+        downloadBtnRef.current.href = canvas.toDataURL("image/jpeg");
+        downloadBtnRef.current.download = `Quran Time Participation Certificate ${name}.jpg`;
+        downloadBtnRef.current.innerHTML = 'Download Certificate';
+      };
+      img.src = '/quran_quiz_participation_certificate.jpg';
+    }).catch(error => {
       console.error({ error })
     })
   }

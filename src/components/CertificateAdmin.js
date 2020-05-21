@@ -7,14 +7,28 @@ import Container from "react-bootstrap/Container";
 
 const CertificateAdmin = () => {
   const nameRef = useRef()
-  const placeRef = useRef()
+  const typeRef = useRef()
   const passwordRef = useRef()
   const canvasRef = useRef()
   const downloadBtnRef = useRef()
   const submitBtnRef = useRef()
 
+  const imgProps = {
+    winner: {
+      url: '/quran_quiz_certificate.jpg',
+      x: 0.35,
+      y: 0.57
+    },
+    participation: {
+      url: '/quran_quiz_participation_certificate.jpg',
+      x: 0.5,
+      y: 0.53
+    }
+  }
+
   const getCertificate = (e) => {
     e.preventDefault()
+    const ct = typeRef.current.value;
     if (passwordRef.current.value === 'saltmangotree') {
       const name = nameRef.current.value;
       submitBtnRef.current.classList.add("btn-light")
@@ -32,13 +46,13 @@ const CertificateAdmin = () => {
         context.textBaseline = 'middle';
         context.textAlign = 'center';
         context.font = '35pt Elmessiri, "Times New Roman", Times, serif';
-        context.fillText(name, canvas.width * 0.35, canvas.height * 0.57);
+        context.fillText(name, canvas.width * imgProps[ct].x , canvas.height * imgProps[ct].y);
 
         downloadBtnRef.current.href = canvas.toDataURL("image/jpeg");
-        downloadBtnRef.current.download = `Quran Time Certificate ${name}.jpg`;
+        downloadBtnRef.current.download = `Quran Time ${ct} certificate ${name}.jpg`;
         downloadBtnRef.current.innerHTML = 'Download Certificate';
       };
-      img.src = '/quran_quiz_certificate.jpg';
+      img.src = imgProps[ct].url;
     } else {
       alert('invalid password')
     }
@@ -58,6 +72,16 @@ const CertificateAdmin = () => {
               </Form.Label>
               <Col sm="9">
                 <Form.Control ref={passwordRef} type="password" required />
+              </Col>
+            </Form.Group>
+
+            <Form.Group as={Row} controlId="formGridType">
+              <Form.Label column sm="3">Type</Form.Label>
+              <Col sm="9">
+                <Form.Control ref={typeRef} required name="type" defaultValue="participation" as="select">
+                  <option key={0} value="participation">Participation</option>
+                  <option key={0} value="winner">Winner</option>
+                </Form.Control>
               </Col>
             </Form.Group>
 
