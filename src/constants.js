@@ -1,6 +1,6 @@
 export const brand = {
   title: 'SU’AAL Online Quiz Phase 03',
-  description: `<p>SU’AAL Quiz, run by Wisdom Students Delhi Region has made an enormous platform for Islamic knowledge.</p>
+  description: `<p>SU’AAL Quiz, run by Wisdom Students Delhi Region is a platform for gaining Islamic knowledge.</p>
 
 <p>Quiz will be hosted on all Saturdays.
 90% of the questions will be based on SU’AAL Syllabus. 
