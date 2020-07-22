@@ -26,7 +26,8 @@ const districts = [
   'Kottayam',
   'Pathanamthitta',
   'Kollam',
-  'Thiruvananthapuram'
+  'Thiruvananthapuram',
+  'Outside Kerala'
 ]
 
 const Profile = () => {
