@@ -12,6 +12,22 @@ import { useHistory } from "react-router-dom";
 import { GET_USER_DETAILS, UPDATE_USER_DETAILS } from '../graphql';
 import { brand } from '../constants';
 
+const districts = [
+  'Kasargod',
+  'Kannur',
+  'Kozhikode',
+  'Wayanad',
+  'Malappuram',
+  'Palakkad',
+  'Thrissur',
+  'Alappuzha',
+  'Ernakulam',
+  'Idukki',
+  'Kottayam',
+  'Pathanamthitta',
+  'Kollam',
+  'Thiruvananthapuram'
+]
 
 const Profile = () => {
   let history = useHistory();
@@ -113,12 +129,17 @@ const Profile = () => {
 
                 <Form.Group controlId="formGridGender">
                   <Form.Label>Gender</Form.Label>
-                  <Form.Control ref={node => {userInput.gender = node}} type="text" required name="text" defaultValue={user.gender} />
+                  <Form.Control ref={node => {userInput.gender = node}} required name="text" defaultValue={user.gender} as="select">
+                    <option key="m" value="male">Male</option>
+                    <option key="f" value="female">Female</option>
+                  </Form.Control>
                 </Form.Group>
 
                 <Form.Group controlId="formGridClass">
                   <Form.Label>Class</Form.Label>
-                  <Form.Control ref={node => {userInput.class= node}} required name="class" defaultValue={user.class}/>
+                  <Form.Control ref={node => {userInput.class= node}} required name="class" defaultValue={user.class} as="select">
+                    {[7,8,9,10,11,12].map((e) => <option key={e} value={e}>{e}th</option>)}
+                  </Form.Control>
                 </Form.Group>
 
                 <Form.Group controlId="formGridSchool">
@@ -128,11 +149,13 @@ const Profile = () => {
 
                 <Form.Group controlId="formGridDistrict">
                   <Form.Label>District</Form.Label>
-                  <Form.Control ref={node => {userInput.district= node}} required name="district" defaultValue={user.district}/>
+                  <Form.Control ref={node => {userInput.district= node}} required name="district" defaultValue={user.district} as="select">
+                    {districts.map((d)=><option key={d} value={d}>{d}</option>)}
+                  </Form.Control>
                 </Form.Group>
 
                 <Form.Group controlId="formGridZone">
-                  <Form.Label>Zone</Form.Label>
+                  <Form.Label>Zone/Place</Form.Label>
                   <Form.Control ref={node => {userInput.zone= node}} required name="zone" defaultValue={user.zone}/>
                 </Form.Group>
 

@@ -14,7 +14,7 @@ const Failure = ({ score, max }) => (
     <Row className="customCenter fullHeight">
       <Col className="customCenter contentContainer">
         <Image src={fail} rounded className="imageFail" fluid />
-        <h3 className="red">Sorry!</h3>
+        {/*<h3 className="red">Sorry!</h3>*/}
         <h5 className="m-t-1">Your score: {score}/{max}</h5>
         <p dangerouslySetInnerHTML={{ __html: brand.fail_text}}></p>
         <LinkContainer to="/">
