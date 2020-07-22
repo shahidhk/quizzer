@@ -22,21 +22,20 @@ export const brand = {
   <ul>
   <li> സമയപരിധിക്കുള്ളിൽ ( ഉച്ചകഴിഞ്ഞ് 2 മുതൽ രാത്രി 10 വരെ [IST] ) നേരത്തെ പറഞ്ഞ, യോഗ്യതയുള്ള ആർക്കും, കൃത്യം രണ്ട് മണിക്ക് പുറത്ത് വരുന്ന ലിങ്കിലൂടെ മത്സരത്തിൽ പങ്കെടുക്കാം. (Eligible participants can join the contest through a link which will be shared between  afternoon 2 pm and 10pm.)</li>
   
-  - നേരത്തെ അറിയിക്കുന്ന വിഷയവുമായി ബന്ധപ്പെട്ട 20 ചോദ്യങ്ങളായിരിക്കും ഉണ്ടാവുക. ഓരോ ചോദ്യത്തിനും 4 ഓപ്ഷൻസ് വീതം ഉണ്ടായിരിക്കും.
-  -20 Multiple choice question regarding the topic will be given 
-  Each question  have 4 multiple choice to choose from. 
+  <li>നേരത്തെ അറിയിക്കുന്ന വിഷയവുമായി ബന്ധപ്പെട്ട 20 ചോദ്യങ്ങളായിരിക്കും ഉണ്ടാവുക. ഓരോ ചോദ്യത്തിനും 4 ഓപ്ഷൻസ് വീതം ഉണ്ടായിരിക്കും.</li>
+  <li>20 Multiple choice question regarding the topic will be given. Each question  have 4 multiple choice to choose from. </li>
   
-  - പരീക്ഷ തുടങ്ങി 1/2 മണിക്കൂറിനുള്ളിൽ മുഴുവൻ ചോദ്യങ്ങൾക്കും ഉത്തരം നൽകേണ്ടതാണ്. 
-  -Allotted time to answer all the questions is 30 MINUTES FROM START TO END. 
+  <li>പരീക്ഷ തുടങ്ങി 1/2 മണിക്കൂറിനുള്ളിൽ മുഴുവൻ ചോദ്യങ്ങൾക്കും ഉത്തരം നൽകേണ്ടതാണ്. </li>
+  <li>Allotted time to answer all the questions is 30 MINUTES FROM START TO END. </li>
   
-  - അതാത് ക്ലാസ്സുകളിൽ ഏറ്റവും കൂടുതൽ സ്കോർ നേടുന്നവരിൽ നിന്ന് തെരഞ്ഞെടുക്കുന്ന വിജയികൾക്ക് ആകർഷകമായ സമ്മാനങ്ങൾ ഉണ്ടായിരിക്കും.
-  Participants with higher score will be selected from the appointed classes and will be “AWARDED WITH EXCITING PRIZES”
+  <li>അതാത് ക്ലാസ്സുകളിൽ ഏറ്റവും കൂടുതൽ സ്കോർ നേടുന്നവരിൽ നിന്ന് തെരഞ്ഞെടുക്കുന്ന വിജയികൾക്ക് ആകർഷകമായ സമ്മാനങ്ങൾ ഉണ്ടായിരിക്കും.</li>
+  <li>Participants with higher score will be selected from the appointed classes and will be “AWARDED WITH EXCITING PRIZES”</li>
   
-  - ഏറ്റവും കൂടുതൽ ചോദ്യങ്ങൾ‌ക്ക് ശരിയായ ഉത്തരം നൽ‌കുന്ന ഒന്നിലധികം പേർ ഉണ്ടെങ്കിൽ, random draw - ലൂടെ വിജയികളെ തിരഞ്ഞെടുക്കും.
-  The winner will be chosen by “RANDOM DRAW” if scores achieved by more than 1 participants is equal. 
+  <li>ഏറ്റവും കൂടുതൽ ചോദ്യങ്ങൾ‌ക്ക് ശരിയായ ഉത്തരം നൽ‌കുന്ന ഒന്നിലധികം പേർ ഉണ്ടെങ്കിൽ, random draw - ലൂടെ വിജയികളെ തിരഞ്ഞെടുക്കും.</li>
+  <li>The winner will be chosen by “RANDOM DRAW” if scores achieved by more than 1 participants is equal. </li>
   
-  - വിജയികളാവുന്നവർ 'വിദ്യാർത്ഥി' എന്ന നിലയിലുള്ള നിങ്ങളുടെ  ഐഡന്റിറ്റി തെളിയിക്കേണ്ടതാണ്.
-  -Prize winner should provide STUDENT PROOF OF IDENTIFICATION
+  <li>വിജയികളാവുന്നവർ 'വിദ്യാർത്ഥി' എന്ന നിലയിലുള്ള നിങ്ങളുടെ  ഐഡന്റിറ്റി തെളിയിക്കേണ്ടതാണ്.</li>
+  <li>Prize winner should provide STUDENT PROOF OF IDENTIFICATION</li>
 `,
   neutral_text: `Winners will be announced later`,
   fail_text: 'Try later',
