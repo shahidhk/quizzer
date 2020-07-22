@@ -80,11 +80,12 @@ result_template = """
 RESULT_SQL="""
 SELECT
         name
+       ,mobile
+       ,gender
        ,class
        ,school
-       ,address
-       ,mobile
-       ,email
+       ,district
+       ,zone
     FROM
         public.scores JOIN public.users
             ON public.scores.user_id = public.users.id
