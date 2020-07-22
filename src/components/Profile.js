@@ -12,6 +12,7 @@ import { useHistory } from "react-router-dom";
 import { GET_USER_DETAILS, UPDATE_USER_DETAILS } from '../graphql';
 import { brand } from '../constants';
 
+
 const Profile = () => {
   let history = useHistory();
   const { loading: queryLoading, error: queryError, data } = useQuery(
@@ -25,11 +26,11 @@ const Profile = () => {
     onCompleted: (data) => {
       if (data && data.users.returning.length > 0) {
         const user = data.users.returning[0];
-        if (user.name != null && user.mobile != null && user.course_occupation != null && user.address != null) {
+        if (user.name != null && user.mobile != null && user.gender != null && user.class != null && user.school != null && user.district!= null && user.zone!= null) {
           alert("Profile updated! Let's go to questions!");
           window.setTimeout(()=>{history.push('')}, 1000);
         } else {
-          alert('Please fill mobile number, name, address, course_occupation and class!');
+          alert('Please fill all fields!');
         }
       }
     },
@@ -54,9 +55,11 @@ const Profile = () => {
     user = {
       name: null,
       mobile: null,
-      email: null,
-      course_occupation: null,
-      address: null
+      gender: null,
+      class: null,
+      school: null,
+      district: null,
+      zone: null
     };
   } else {
     user = data.users[0];
@@ -65,19 +68,23 @@ const Profile = () => {
   let userInput = {
     name: null,
     mobile: null,
-    email: null,
-    course_occupation: null,
-    address: null
+    gender: null,
+    class: null,
+    school: null,
+    district: null,
+    zone: null
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     updateUser({ variables: {
-      mobile: userInput.mobile.value,
       name: userInput.name.value,
-      email: userInput.email.value,
-      course_occupation: userInput.course_occupation.value,
-      address: userInput.address.value
+      mobile: userInput.mobile.value,
+      gender: userInput.gender.value,
+      class: userInput.class.value,
+      school: userInput.school.value,
+      district: userInput.district.value,
+      zone: userInput.zone.value
     }})
 
   }
@@ -100,23 +107,33 @@ const Profile = () => {
                 </Form.Group>
 
                 <Form.Group controlId="formGridMobile">
-                  <Form.Label>Mobile</Form.Label>
+                  <Form.Label>WhatsApp number</Form.Label>
                   <Form.Control ref={node => {userInput.mobile = node}} required name="mobile" defaultValue={user.mobile} />
                 </Form.Group>
 
-                <Form.Group controlId="formGridEmail">
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control ref={node => {userInput.email = node}} type="email" required name="email" defaultValue={user.email} />
+                <Form.Group controlId="formGridGender">
+                  <Form.Label>Gender</Form.Label>
+                  <Form.Control ref={node => {userInput.gender = node}} type="text" required name="text" defaultValue={user.gender} />
                 </Form.Group>
 
-                <Form.Group controlId="formGridAddress">
-                  <Form.Label>Place</Form.Label>
-                  <Form.Control ref={node => {userInput.address= node}} required name="address" defaultValue={user.address}/>
+                <Form.Group controlId="formGridClass">
+                  <Form.Label>Class</Form.Label>
+                  <Form.Control ref={node => {userInput.class= node}} required name="class" defaultValue={user.class}/>
                 </Form.Group>
 
                 <Form.Group controlId="formGridSchool">
-                  <Form.Label>Course/Occupation</Form.Label>
-                  <Form.Control ref={node => {userInput.course_occupation = node}} required name="course_occupation" defaultValue={user.course_occupation}/>
+                  <Form.Label>School</Form.Label>
+                  <Form.Control ref={node => {userInput.school= node}} required name="school" defaultValue={user.school}/>
+                </Form.Group>
+
+                <Form.Group controlId="formGridDistrict">
+                  <Form.Label>District</Form.Label>
+                  <Form.Control ref={node => {userInput.district= node}} required name="district" defaultValue={user.district}/>
+                </Form.Group>
+
+                <Form.Group controlId="formGridZone">
+                  <Form.Label>Zone</Form.Label>
+                  <Form.Control ref={node => {userInput.zone= node}} required name="zone" defaultValue={user.zone}/>
                 </Form.Group>
 
                 <Button variant="primary" type="submit">

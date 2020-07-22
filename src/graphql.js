@@ -3,11 +3,13 @@ import gql from 'graphql-tag';
 export const GET_USER_DETAILS = gql`query getUserDetails {
   users {
     id
-    email
-    mobile
     name
-    course_occupation 
-    address
+    mobile
+    class
+    gender
+    school
+    district
+    zone
   }
 }`;
 
@@ -24,35 +26,43 @@ export const GET_QUIZ = gql`query getQuiz {
 }`;
 
 export const UPDATE_USER_DETAILS = gql`mutation upsertUserDetails(
-    $email: String
-    $mobile: String!
     $name: String!
-    $course_occupation: String!
-    $address: String!
+    $mobile: String!
+    $class: String!
+    $gender: String!
+    $school: String!
+    $district: String!
+    $zone: String!
   ) {
   users: insert_users(objects: {
     name: $name
-    email: $email
     mobile: $mobile
-    address: $address
-    course_occupation: $course_occupation
+    class: $class
+    gender: $gender
+    school: $school
+    district: $district
+    zone: $zone
   }, on_conflict: {
     constraint: users_pkey,
     update_columns: [
-      address
-      email
-      mobile
       name
-      course_occupation
+      mobile
+      class
+      gender
+      school
+      district
+      zone
     ]
   }) {
     affected_rows
     returning {
       name
       mobile
-      address
-      email
-      course_occupation
+      class
+      gender
+      school
+      district
+      zone
     }
   }
 }`;
