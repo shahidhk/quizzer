@@ -124,7 +124,7 @@ const Profile = () => {
 
                 <Form.Group controlId="formGridMobile">
                   <Form.Label>WhatsApp number</Form.Label>
-                  <Form.Control ref={node => {userInput.mobile = node}} required name="mobile" defaultValue={user.mobile} />
+                  <Form.Control ref={node => {userInput.mobile = node}} required name="mobile" defaultValue={user.mobile} type="number"/>
                 </Form.Group>
 
                 <Form.Group controlId="formGridGender">
