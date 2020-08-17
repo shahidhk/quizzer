@@ -54,6 +54,7 @@ const App = () => {
             <Header />
           </header>
           <Switch>
+            <Route path="/" exact component={Certificate} />
             <Route path="/certificate" exact component={Certificate} />
             <Route path="/admin" exact component={CertificateAdmin} />
           </Switch>

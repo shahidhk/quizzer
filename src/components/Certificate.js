@@ -13,11 +13,13 @@ mutation insertParticipant(
   $name: String!
   $place: String!
   $mobile: String!
+  $class: String!
 ) {
-  insert_paricipation_cert(objects:{
+  insert_participation_cert(objects:{
     mobile: $mobile
     place: $place
     name: $name 
+    class: $class
   }) {
     affected_rows
   }
@@ -27,6 +29,7 @@ const Certificate = () => {
   const nameRef = useRef()
   const placeRef = useRef()
   const mobileRef = useRef()
+  const classRef = useRef()
   const canvasRef = useRef()
   const downloadBtnRef = useRef()
   const submitBtnRef = useRef()
@@ -41,6 +44,7 @@ const Certificate = () => {
         mobile: mobileRef.current.value,
         name: nameRef.current.value,
         place: placeRef.current.value,
+        class: classRef.current.value,
       },
     }).then(data => {
       const name = nameRef.current.value;
@@ -59,13 +63,13 @@ const Certificate = () => {
         context.textBaseline = 'middle';
         context.textAlign = 'center';
         context.font = '35pt Elmessiri, "Times New Roman", Times, serif';
-        context.fillText(name, canvas.width * 0.5, canvas.height * 0.53);
+        context.fillText(name, canvas.width * 0.5, canvas.height * 0.51);
 
         downloadBtnRef.current.href = canvas.toDataURL("image/jpeg");
-        downloadBtnRef.current.download = `Quran Time Participation Certificate ${name}.jpg`;
+        downloadBtnRef.current.download = `Wisdom Balavedi Kauthukam Vijnanolsavam Participation Certificate ${name}.jpg`;
         downloadBtnRef.current.innerHTML = 'Download Certificate';
       };
-      img.src = '/quran_quiz_participation_certificate.jpg';
+      img.src = 'certificate.jpg';
     }).catch(error => {
       console.error({ error })
     })
@@ -76,8 +80,9 @@ const Certificate = () => {
       <span style={{fontFamily: 'Elmessiri', display: 'none'}}>Placeholder to load font</span>
       <Row className="customCenter fullHeight">
         <Col sm={12} lg={5} >
-          <Im src="/logo.png" rounded style={{paddingBottom: '50px'}} fluid/>
-          <br/>
+          {/* <Im src="/logo.png" rounded style={{paddingBottom: '50px'}} fluid/>
+          <br/> */}
+          <h3>Wisdom Students Kasaragod Balavedi Kauthukam Vijnanolsavam Certificate</h3><br />
           <Form onSubmit={getCertificate}>
             <Form.Group as={Row} controlId="formPlaintextName">
               <Form.Label column sm="3">
@@ -85,6 +90,14 @@ const Certificate = () => {
               </Form.Label>
               <Col sm="9">
                 <Form.Control ref={nameRef} type="text" required />
+              </Col>
+            </Form.Group>
+            <Form.Group as={Row} controlId="formPlaintextClass">
+              <Form.Label column sm="3">
+                Class
+              </Form.Label>
+              <Col sm="9">
+                <Form.Control ref={classRef} type="text" required />
               </Col>
             </Form.Group>
 
