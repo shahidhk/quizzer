@@ -31,7 +31,7 @@ const App = () => {
         ...headers,
         'x-hasura-role': 'user',
         'x-hasura-user-id': '54',
-        'x-hasura-admin-secret': 'MTM4MGY0MTlhNDk0ZmM4MjU5NjQzNTJj'
+        'x-hasura-admin-secret': 'placeholder'
       }
     }
   });
