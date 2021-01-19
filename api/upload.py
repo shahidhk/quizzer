@@ -122,9 +122,9 @@ mutation loadQuiz(
   $end_at: timestamptz!
   $num_qs: Int!
   $show_score: Boolean!
-  $questions: [questions_insert_input!]!
+  $questions: [qberry_questions_insert_input!]!
 ) {
-  quiz: insert_quiz(objects:{
+  quiz: insert_qberry_quiz(objects:{
     name: $name
     start_at: $start_at
     end_at: $end_at

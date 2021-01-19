@@ -10,4 +10,4 @@ export const brand = {
   sorry_text: `Sorry, there are no quizzes live right now. Check back later!`,
 };
 
-export const api_url = 'https://wisdom-api.shahidh.in/v1/graphql';
+export const api_url = 'https://profcon.hasura.app/v1/graphql';

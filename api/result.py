@@ -79,18 +79,15 @@ result_template = """
 
 RESULT_SQL="""
 SELECT
-        name
-       ,class
-       ,school
-       ,address
-       ,mobile
+        id
+       ,first_name
        ,email
     FROM
-        public.scores JOIN public.users
-            ON public.scores.user_id = public.users.id
+        public.qberry_scores JOIN public.auth_user
+            ON public.qberry_scores.user_id = public.auth_user.id
     WHERE
-        public.scores.score = {{ max_score }}
-        AND public.scores.quiz_id = '{{ quiz_id }}'
+        public.qberry_scores.score = {{ max_score }}
+        AND public.qberry_scores.quiz_id = '{{ quiz_id }}'
     ORDER BY
         random ()
     LIMIT {{ num_winners }}

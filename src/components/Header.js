@@ -26,9 +26,9 @@ const Header = () => {
             <LinkContainer to="/">
               <Nav.Link>Home</Nav.Link>
             </LinkContainer>
-            <LinkContainer to="/profile">
+            {/* <LinkContainer to="/profile">
               <Nav.Link>Profile</Nav.Link>
-            </LinkContainer>
+            </LinkContainer> */}
             <NewSession />
           </>
         </Nav>

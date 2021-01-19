@@ -1,47 +1,47 @@
 - table:
     schema: public
-    name: answers
+    name: qberry_answers
   object_relationships:
   - name: live_quiz
     using:
       manual_configuration:
         remote_table:
           schema: public
-          name: live_quiz
+          name: qberry_live_quiz
         column_mapping:
           quiz_id: id
-  - name: option
+  - name: qberry_option
     using:
       foreign_key_constraint_on: option_id
-  - name: quiz
+  - name: qberry_quiz
     using:
       foreign_key_constraint_on: quiz_id
   insert_permissions:
-  - role: anonymous
+  - role: user
     permission:
       check:
         _and:
         - user_id:
-            _eq: X-Hasura-Session-Id
+            _eq: X-Hasura-User-Id
         - live_quiz: {}
       set:
-        user_id: x-hasura-session-id
+        user_id: x-hasura-User-id
       columns:
       - option_id
       - question_id
       - quiz_id
 - table:
     schema: public
-    name: live_quiz
+    name: qberry_live_quiz
 - table:
     schema: public
-    name: options
+    name: qberry_options
   object_relationships:
   - name: question
     using:
       foreign_key_constraint_on: question_id
   select_permissions:
-  - role: anonymous
+  - role: user
     permission:
       columns:
       - id
@@ -51,14 +51,14 @@
           live_quiz: {}
 - table:
     schema: public
-    name: questions
+    name: qberry_questions
   object_relationships:
   - name: live_quiz
     using:
       manual_configuration:
         remote_table:
           schema: public
-          name: live_quiz
+          name: qberry_live_quiz
         column_mapping:
           quiz_id: id
   - name: quiz
@@ -71,9 +71,9 @@
         column: question_id
         table:
           schema: public
-          name: options
+          name: qberry_options
   select_permissions:
-  - role: anonymous
+  - role: user
     permission:
       columns:
       - id
@@ -83,14 +83,14 @@
         live_quiz: {}
 - table:
     schema: public
-    name: quiz
+    name: qberry_quiz
   object_relationships:
   - name: live_quiz
     using:
       manual_configuration:
         remote_table:
           schema: public
-          name: live_quiz
+          name: qberry_live_quiz
         column_mapping:
           id: id
   array_relationships:
@@ -100,16 +100,16 @@
         column: quiz_id
         table:
           schema: public
-          name: questions
+          name: qberry_questions
   - name: scores
     using:
       foreign_key_constraint_on:
         column: quiz_id
         table:
           schema: public
-          name: scores
+          name: qberry_scores
   select_permissions:
-  - role: anonymous
+  - role: user
     permission:
       columns:
       - id
@@ -120,13 +120,13 @@
         live_quiz: {}
 - table:
     schema: public
-    name: scores
+    name: qberry_scores
   object_relationships:
   - name: quiz
     using:
       foreign_key_constraint_on: quiz_id
   select_permissions:
-  - role: anonymous
+  - role: user
     permission:
       columns:
       - max
@@ -135,17 +135,17 @@
       - user_id
       filter:
         user_id:
-          _eq: X-Hasura-Session-Id
+          _eq: X-Hasura-User-Id
 - table:
     schema: public
-    name: session_questions
+    name: qberry_session_questions
   object_relationships:
   - name: live_quiz
     using:
       manual_configuration:
         remote_table:
           schema: public
-          name: live_quiz
+          name: qberry_live_quiz
         column_mapping:
           quiz_id: id
   - name: question
@@ -155,7 +155,7 @@
     using:
       foreign_key_constraint_on: quiz_id
   select_permissions:
-  - role: anonymous
+  - role: user
     permission:
       columns:
       - question_id
@@ -164,18 +164,18 @@
       filter:
         _and:
         - user_id:
-            _eq: X-Hasura-Session-Id
+            _eq: X-Hasura-User-Id
         - live_quiz: {}
 - table:
     schema: public
-    name: sessions
+    name: qberry_sessions
   object_relationships:
   - name: live_quiz
     using:
       manual_configuration:
         remote_table:
           schema: public
-          name: live_quiz
+          name: qberry_live_quiz
         column_mapping:
           quiz_id: id
   - name: quiz
@@ -190,24 +190,24 @@
       manual_configuration:
         remote_table:
           schema: public
-          name: session_questions
+          name: qberry_session_questions
         column_mapping:
           quiz_id: quiz_id
           user_id: user_id
   insert_permissions:
-  - role: anonymous
+  - role: user
     permission:
       check:
         _and:
         - user_id:
-            _eq: X-Hasura-Session-Id
+            _eq: X-Hasura-User-Id
         - live_quiz: {}
       set:
-        user_id: x-hasura-session-id
+        user_id: x-hasura-User-id
       columns:
       - quiz_id
   select_permissions:
-  - role: anonymous
+  - role: user
     permission:
       columns:
       - created_at
@@ -216,52 +216,18 @@
       filter:
         _and:
         - user_id:
-            _eq: X-Hasura-Session-Id
+            _eq: X-Hasura-User-Id
         - live_quiz: {}
 - table:
     schema: public
-    name: users
-  insert_permissions:
-  - role: anonymous
-    permission:
-      check:
-        id:
-          _eq: X-Hasura-Session-Id
-      set:
-        id: x-hasura-session-id
-      columns:
-      - address
-      - class
-      - email
-      - mobile
-      - name
-      - school
+    name: auth_user
   select_permissions:
-  - role: anonymous
+  - role: user
     permission:
       columns:
-      - class
-      - created_at
-      - email
       - id
-      - mobile
-      - name
-      - address
-      - school
-      filter:
-        id:
-          _eq: X-Hasura-Session-Id
-  update_permissions:
-  - role: anonymous
-    permission:
-      columns:
-      - class
+      - first_name
       - email
-      - mobile
-      - name
-      - address
-      - school
       filter:
         id:
-          _eq: X-Hasura-Session-Id
-      check: null
+          _eq: X-Hasura-User-Id

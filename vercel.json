@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "env": {
+    "HASURA_ENDPOINT": "@hasura-profcon-endpoint",
+    "HASURA_ADMIN_SECRET": "@hasura-profcon-admin-secret",
+    "ADMIN_PASSWORD": "@profcon-admin-password"
+  }
+}

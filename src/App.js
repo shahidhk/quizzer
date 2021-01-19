@@ -29,8 +29,9 @@ const App = () => {
     return {
       headers: {
         ...headers,
-        'x-hasura-role': 'anonymous',
-        'x-hasura-session-id': sessionId,
+        'x-hasura-role': 'user',
+        'x-hasura-user-id': '54',
+        'x-hasura-admin-secret': 'MTM4MGY0MTlhNDk0ZmM4MjU5NjQzNTJj'
       }
     }
   });

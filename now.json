@@ -1,8 +1,0 @@
-{
-  "version": 2,
-  "env": {
-    "HASURA_ENDPOINT": "@hasura-endpoint",
-    "HASURA_ADMIN_SECRET": "@hasura-admin-secret",
-    "ADMIN_PASSWORD": "@admin-password"
-  }
-}

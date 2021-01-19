@@ -1,20 +1,12 @@
 import React from 'react';
-import gql from 'graphql-tag';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 import Success from './Success';
 import Failure from './Failure';
 import Neutral from './Neutral';
 
-const GET_SCORE = gql`query getScore($quiz_id: uuid!) {
-  quiz: quiz_by_pk (id: $quiz_id) {
-    show_score
-    scores {
-      score
-      max
-    }
-  }
-}`;
+import { GET_SCORE } from '../graphql';
+
 
 const Result = () => {
   const { quizId } = useParams();

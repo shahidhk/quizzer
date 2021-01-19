@@ -1,19 +1,15 @@
 import gql from 'graphql-tag';
 
 export const GET_USER_DETAILS = gql`query getUserDetails {
-  users {
+  users: auth_user {
     id
     email
-    mobile
-    name
-    class
-    school
-    address
+    first_name
   }
 }`;
 
 export const GET_QUIZ = gql`query getQuiz {
-  quiz {
+  quiz: qberry_quiz {
     id
     name
     show_score
@@ -64,7 +60,7 @@ export const UPDATE_USER_DETAILS = gql`mutation upsertUserDetails(
 
 
 export const START_QUIZ = gql`mutation startQuiz($quiz_id: uuid!) {
-  quiz: insert_sessions(objects:{
+  quiz: insert_qberry_sessions(objects:{
     quiz_id: $quiz_id
   }) {
     affected_rows
@@ -72,7 +68,7 @@ export const START_QUIZ = gql`mutation startQuiz($quiz_id: uuid!) {
 }`;
 
 export const GET_QUESTIONS = gql`query getQuestionsForSession($quiz_id: uuid!) {
-  questions: session_questions(where:{
+  questions: qberry_session_questions(where:{
     quiz_id: {_eq: $quiz_id}
   }) {
     question {
@@ -87,10 +83,19 @@ export const GET_QUESTIONS = gql`query getQuestionsForSession($quiz_id: uuid!) {
 }`;
 
 export const SUBMIT_ANSWERS = gql`mutation submitAnswer(
-  $answers: [answers_insert_input!]!
+  $answers: [qberry_answers_insert_input!]!
 ) {
-  answers: insert_answers(objects: $answers) {
+  answers: insert_qberry_answers(objects: $answers) {
     affected_rows
   }
 }`;
 
+export const GET_SCORE = gql`query getScore($quiz_id: uuid!) {
+  quiz: qberry_quiz_by_pk (id: $quiz_id) {
+    show_score
+    scores {
+      score
+      max
+    }
+  }
+}`;
