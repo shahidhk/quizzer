@@ -1,7 +1,8 @@
-import React from 'react';
+import React from "react";
 import './App.css';
 import Header from './components/Header';
 import Home from './components/Home';
+import Login from './components/Login';
 import Quiz from './components/Quiz';
 import Result from './components/Result';
 
@@ -18,20 +19,24 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import { getSessionId, createSessionId } from './localstorage';
 import { api_url } from './constants';
 
+import PrivateRoute from './privateRoute';
+import { useAuth } from "./context/auth";
+
 
 const App = () => {
+
+  const { getAccessToken } = useAuth();
 
   const authLink = setContext(async (_, { headers }) => {
     let sessionId = getSessionId();
     if (sessionId === null) {
       sessionId = createSessionId();
     }
+    const token = await getAccessToken();
     return {
       headers: {
         ...headers,
-        'x-hasura-role': 'user',
-        'x-hasura-user-id': '54',
-        'x-hasura-admin-secret': 'placeholder'
+        'authorization': 'Bearer ' + token,
       }
     }
   });
@@ -58,11 +63,12 @@ const App = () => {
             <Header />
           </header>
           <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/home" exact component={Home} />
-            <Route path="/profile" component={Profile} />
-            <Route path="/quiz/:quizId" component={Quiz} />
-            <Route path="/result/:quizId" component={Result} />
+            <Route path="/login" exact component={Login} />
+            <PrivateRoute path="/" exact component={Home} />
+            <PrivateRoute path="/home" exact component={Home} />
+            <PrivateRoute path="/profile" component={Profile} />
+            <PrivateRoute path="/quiz/:quizId" component={Quiz} />
+            <PrivateRoute path="/result/:quizId" component={Result} />
           </Switch>
         </Router>
       </div>

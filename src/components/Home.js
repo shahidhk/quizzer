@@ -7,7 +7,7 @@ import "../App.css";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { brand } from '../constants';
 
 import {
@@ -73,7 +73,7 @@ const LiveQuiz = () => {
       if (quiz.scores && quiz.scores.length > 0) {
         const score = quiz.scores[0].score;
         const max = quiz.scores[0].max;
-        if (quiz.show_score) return <Button size="sm">Your score is {score}/{max}</Button>;
+        if (quiz.show_score) return (<Link to={'/result/' + quiz.id}><Button size="sm">Your score is {score}/{max}</Button></Link>);
         return (<Button size="sm">You have submitted answers!</Button>)
       }
       // no scores for this quiz
@@ -82,12 +82,12 @@ const LiveQuiz = () => {
     return (
       <div>
         {data.quiz.map((quiz) => {
-          return (<>
-            <div style={{paddingBottom: '10px', paddingTop: '10px'}}>
+          return (<div key={quiz.id}>
+            <div  style={{paddingBottom: '10px', paddingTop: '10px'}}>
               <div style={{ fontWeight: '400', fontSize: '1.4em'}}>{quiz.name}</div>
             </div>
             {getScoreButton(quiz)}
-          </>)
+          </div>)
         })}
       </div>
     );
