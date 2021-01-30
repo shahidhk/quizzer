@@ -6,7 +6,7 @@ import Login from './components/Login';
 import Quiz from './components/Quiz';
 import Result from './components/Result';
 
-import { Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Profile from "./components/Profile";
 import history from "./utils/history";
 
@@ -58,7 +58,7 @@ const App = () => {
     <ApolloProvider client={client}>
       <div className="App">
         {/* Don't forget to include the history module */}
-        <Router history={history}>
+        <BrowserRouter history={history} basename="/qberry">
           <header>
             <Header />
           </header>
@@ -70,7 +70,7 @@ const App = () => {
             <PrivateRoute path="/quiz/:quizId" component={Quiz} />
             <PrivateRoute path="/result/:quizId" component={Result} />
           </Switch>
-        </Router>
+        </BrowserRouter>
       </div>
     </ApolloProvider>
   );

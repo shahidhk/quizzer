@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Button from "react-bootstrap/Button";
+import Image from "react-bootstrap/Image";
 
 import { LinkContainer } from "react-router-bootstrap";
 
@@ -10,14 +11,15 @@ import { LinkContainer } from "react-router-bootstrap";
 import { brand } from '../constants';
 import { useAuth } from "../context/auth";
 
+import navbarLogo from '../images/navbar_logo.png'
 
 const Header = () => {
   const { isAuthenticated, user, logout } = useAuth();
   return (
     <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
       <Navbar.Brand href="#">
-        <img
-          src={brand.navbar_logo_url}
+        <Image
+          src={navbarLogo}
           height="50"
           className="d-inline-block align-top"
           alt="LilBerry logo"

@@ -9,6 +9,7 @@ import Modal from "react-bootstrap/Modal";
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { useHistory, Link } from "react-router-dom";
 import { brand } from '../constants';
+import logo from '../images/logo.png';
 
 import {
   GET_USER_DETAILS,
@@ -42,7 +43,7 @@ const Home = () => {
     <Container fluid>
       <Row className="customCenter fullHeight">
         <Col xs="12" lg="8" className="customCenter imgContainer">
-          <Image src={brand.image_url} rounded className="image" />
+          <Image src={logo} rounded className="image" />
         </Col>
         <Col className="customCenter contentContainer">
           <h3 className="blue">{brand.title}</h3>

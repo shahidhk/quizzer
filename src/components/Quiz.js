@@ -11,6 +11,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import { useParams, useHistory } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { brand } from '../constants';
+import logo from '../images/logo.png';
 
 import {
   GET_QUESTIONS,
@@ -89,7 +90,7 @@ const Quiz = () => {
     <Container fluid>
       <Row className="customCenter fullHeight">
         <Col sm={12} lg={5} className="d-none d-lg-block">
-          <Image src={brand.image_url} fluid />
+          <Image src={logo} fluid />
         </Col>
         <Col sm={12} lg={7} className="customCenter contentContainer">
           <Card>

@@ -9,6 +9,7 @@ import '../App.css';
 import { brand } from '../constants';
 import { Card, Error , Form, Input, Button } from '../components/AuthForm';
 import { useAuth } from "../context/auth";
+import logo from '../images/logo.png';
 
 const Login = () => {
   const [username , setUserName] = useState("");
@@ -29,11 +30,12 @@ const Login = () => {
     login(username, password)
   }
 
+
   return (
     <Container fluid>
       <Row className="customCenter fullHeight">
         <Col xs="12" lg="8" className="customCenter imgContainer">
-          <Image src={brand.image_url} rounded className="image" />
+          <Image src={logo} rounded className="image" />
         </Col>
         <Col className="customCenter contentContainer">
           <h3 className="blue">Login</h3>
