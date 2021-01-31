@@ -66,6 +66,51 @@ export const AuthProvider = ({ children }) => {
 
   }, []);
 
+  const requestOTP = async (number) => {
+    setLoading(true);
+    const form = new FormData();
+    form.append('phone', number);
+    try {
+      const resp = await axios.post(auth.sendOTPUrl, form)
+      setLoading(false);
+      if (resp.status === 200) {
+        return resp.data;
+      }
+    } catch (e) {
+      console.log({requestOTPError: e});
+    }
+    
+    return null;
+  }
+
+  const verifyOTP = (number, otp) => {
+    setLoading(true);
+    const form = new FormData();
+    form.append('phone', number);
+    form.append('otp', otp);
+    axios.post(auth.verifyOTPUrl, form).then(
+      result => {
+        if (result.status === 200) {
+          setTokens(result.data.data);
+          setIsAuthenticated(true);
+          setError(null);
+          setUser(getName(result.data.data.access));
+        } else if (result.status === 401) {
+          setIsAuthenticated(false);
+          setError(result.data && result.data.message);
+        }
+        setLoading(false); 
+      }
+    ).catch(
+      e => {
+        console.log({verifyOTPError: e});
+        setIsAuthenticated(false);
+        setError('unknown error, please refresh and try again');
+        setLoading(false);
+      }
+    )
+  }
+
   const login = (username, password) => {
     setLoading(true);
     axios.post(auth.loginUrl, {
@@ -136,6 +181,8 @@ export const AuthProvider = ({ children }) => {
         loading,
         login,
         logout,
+        requestOTP,
+        verifyOTP,
         getAccessToken,
         error
       }}

@@ -3,6 +3,8 @@ import './App.css';
 import Header from './components/Header';
 import Home from './components/Home';
 import Login from './components/Login';
+
+import OTPLogin from './components/OTPLogin';
 import Quiz from './components/Quiz';
 import Result from './components/Result';
 
@@ -63,6 +65,7 @@ const App = () => {
             <Header />
           </header>
           <Switch>
+            <Route path="/otplogin" exact component={OTPLogin} />
             <Route path="/login" exact component={Login} />
             <PrivateRoute path="/" exact component={Home} />
             <PrivateRoute path="/home" exact component={Home} />

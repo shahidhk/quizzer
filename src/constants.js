@@ -27,7 +27,9 @@ export const brand = {
 };
 
 export const auth = {
-  loginUrl: 'https://api.profcon.in/api/auth/token/'
+  loginUrl: 'https://api.profcon.in/api/auth/token/',
+  sendOTPUrl: 'https://api.profcon.in/api/auth/send-otp/',
+  verifyOTPUrl: 'https://api.profcon.in/api/auth/verify-otp/'
 }
 
 export const api_url = 'https://profcon.hasura.app/v1/graphql';

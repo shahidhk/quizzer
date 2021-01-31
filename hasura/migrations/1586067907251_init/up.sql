@@ -6,6 +6,7 @@ CREATE TABLE public.qberry_answers (
     question_id uuid NOT NULL,
     option_id uuid NOT NULL
 );
+
 CREATE TABLE public.qberry_quiz (
     id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     created_at timestamp with time zone DEFAULT now() NOT NULL,
@@ -15,6 +16,7 @@ CREATE TABLE public.qberry_quiz (
     num_qs integer NOT NULL,
     show_score boolean DEFAULT false NOT NULL
 );
+
 CREATE VIEW public.qberry_live_quiz AS
  SELECT public.qberry_quiz.id,
     public.qberry_quiz.created_at,

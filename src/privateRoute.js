@@ -12,7 +12,7 @@ function PrivateRoute({ component: Component, ...rest }) {
         isAuthenticated ? (
           <Component {...props} />
         ) : (
-          <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
+          <Redirect to={{ pathname: "/otplogin", state: { from: props.location } }} />
         )
       }
     />
