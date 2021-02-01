@@ -47,8 +47,8 @@ form_html = """
         <td><label for="show_score">Show score:</label></td>
         <td>
           <select id="show_score" name="show_score" required>
-            <option value="true">Yes</option>
             <option value="false">No</option>
+            <option value="true">Yes</option>
           </select>
         </td>
       </tr>

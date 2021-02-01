@@ -70,7 +70,7 @@ const OTPLogin = () => {
           <Image src={logo} rounded className="image" />
         </Col>
         <Col className="customCenter contentContainer">
-          <h3 className="blue">Login</h3>
+          <h5 className="blue">Login with your number registered at <a href="https://profcon.in/registration/#/" target="_blank">profcon.in</a></h5>
           <Card>
             <Form>
               
@@ -111,6 +111,10 @@ const OTPLogin = () => {
             </Form>
             { error &&<Error>{JSON.stringify(error)}</Error> }
           </Card>
+          <br/>
+
+          {/* <h6>Register at <a href="https://profcon.in/registration/#/" target="_blank">profcon.in</a> to participate</h6> */}
+
         </Col>
       </Row>
     </Container>

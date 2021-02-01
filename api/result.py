@@ -79,12 +79,13 @@ result_template = """
 
 RESULT_SQL="""
 SELECT
-        id
-       ,first_name
+       name, gender
+       ,mobile, whatsapp
        ,email
+       ,campus, course, native_place
     FROM
-        public.qberry_scores JOIN public.auth_user
-            ON public.qberry_scores.user_id = public.auth_user.id
+        public.qberry_scores
+    JOIN public.registration_registrations ON public.qberry_scores.user_id = public.registration_registrations.user_id
     WHERE
         public.qberry_scores.score = {{ max_score }}
         AND public.qberry_scores.quiz_id = '{{ quiz_id }}'
