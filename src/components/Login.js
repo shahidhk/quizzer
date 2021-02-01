@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { Redirect, useHistory, useLocation } from "react-router-dom";
+import { Redirect, useLocation } from "react-router-dom";
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import '../App.css';
 // import Button from "react-bootstrap/Button";
-import { brand } from '../constants';
 import { Card, Error , Form, Input, Button } from '../components/AuthForm';
 import { useAuth } from "../context/auth";
 import logo from '../images/logo.png';
@@ -16,7 +15,6 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   const { isAuthenticated, login, error } = useAuth();
-  let history = useHistory();
   let location = useLocation();
 
   const { from } = location.state || { from: { pathname: "/" } };

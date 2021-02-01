@@ -8,7 +8,6 @@ import { LinkContainer } from "react-router-bootstrap";
 
 // import NewSession from './NewSession';
 
-import { brand } from '../constants';
 import { useAuth } from "../context/auth";
 
 import navbarLogo from '../images/navbar_logo.png'

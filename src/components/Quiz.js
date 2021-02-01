@@ -10,7 +10,6 @@ import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import { useParams, useHistory } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { brand } from '../constants';
 import logo from '../images/logo.png';
 
 import {

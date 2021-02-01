@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Redirect, useHistory, useLocation } from "react-router-dom";
+import { Redirect, useLocation } from "react-router-dom";
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -7,8 +7,7 @@ import Image from 'react-bootstrap/Image';
 import '../App.css';
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { brand } from '../constants';
-import { Card, Error } from '../components/AuthForm';
+import { Card } from '../components/AuthForm';
 import { useAuth } from "../context/auth";
 import logo from '../images/logo.png';
 import PhoneInput from 'react-phone-input-2'
@@ -16,16 +15,13 @@ import 'react-phone-input-2/lib/style.css'
 
 const OTPLogin = () => {
   const [otp , setOtp] = useState("");
-  const [password, setPassword] = useState("");
-  const [country, setCountry] = useState("");
   const [phone, setPhone] = useState();
   const [message, setMessage] = useState();
   const [enterOTPHidden, setEnterOTPHidden] = useState(true);
   const [verifyOTPHidden, setVerifyOTPHidden] = useState(true)
   const [requestOTPHidden, setRequestOTPHidden] = useState(false)
 
-  const { isAuthenticated, login, error, requestOTP, verifyOTP } = useAuth();
-  let history = useHistory();
+  const { isAuthenticated, error, requestOTP, verifyOTP, loading } = useAuth();
   let location = useLocation();
 
   const { from } = location.state || { from: { pathname: "/" } };
@@ -35,9 +31,7 @@ const OTPLogin = () => {
     return <Redirect to={from} />;
   }
 
-  const postLogin = () => {
-    // login(username, password)
-  }
+
   const checkOTP = () => {
     verifyOTP('+'+phone, otp)
   }
@@ -50,7 +44,6 @@ const OTPLogin = () => {
       setVerifyOTPHidden(false)
       setEnterOTPHidden(false)
       
-      console.log({phone})
       setMessage(resp.message)
   
       // if (phone.startsWith('91')) {
@@ -70,7 +63,7 @@ const OTPLogin = () => {
           <Image src={logo} rounded className="image" />
         </Col>
         <Col className="customCenter contentContainer">
-          <h5 className="blue">Login with your number registered at <a href="https://profcon.in/registration/#/" target="_blank">profcon.in</a></h5>
+          <h5 className="blue">Login with your number registered at <a rel="noopener noreferrer" href="https://profcon.in/registration/#/" target="_blank">profcon.in</a></h5>
           <Card>
             <Form>
               
@@ -98,6 +91,8 @@ const OTPLogin = () => {
                     required
                     name="otp"
                     type="number"
+                    min="0000"
+                    max="9999"
                     onChange={e=> {
                       setOtp(e.target.value)
                     }}
@@ -106,10 +101,11 @@ const OTPLogin = () => {
               </Form.Group>
 
 
-              <Button hidden={requestOTPHidden} onClick={sendOTP}>Request OTP</Button>
-              <Button hidden={verifyOTPHidden} onClick={checkOTP}>Verify OTP</Button>
+              <Button hidden={requestOTPHidden} onClick={sendOTP}>{loading ? 'Requesting OTP...' : 'Request OTP'}</Button>
+              <Button hidden={verifyOTPHidden} onClick={checkOTP}>{loading ? 'Verifying OTP...' : 'Verify OTP'}</Button>
             </Form>
-            { error &&<Error>{JSON.stringify(error)}</Error> }
+            <br/>
+            { error &&<div className="red">{error}</div> }
           </Card>
           <br/>
 

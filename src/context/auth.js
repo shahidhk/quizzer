@@ -13,7 +13,7 @@ const getExpirationDate = (jwt) => {
   const claims = JSON.parse(atob(jwt.split('.')[1]));
 
   // multiply by 1000 to convert seconds into milliseconds
-  return claims && claims.exp && claims.exp * 1000 || null;
+  return (claims && claims.exp && claims.exp * 1000) || null;
 };
 
 const getName = (jwt) => {
@@ -38,7 +38,11 @@ export const AuthProvider = ({ children }) => {
   const [authTokens, setAuthTokens] = useState();
 
   const getTokens = () => {
-    return JSON.parse(localStorage.getItem("tokens"));
+    try {
+      return JSON.parse(localStorage.getItem("tokens"));
+    } catch (e) {
+      return null;
+    }
   };
   const setTokens = (data) => {
     localStorage.setItem("tokens", JSON.stringify(data));
@@ -50,7 +54,9 @@ export const AuthProvider = ({ children }) => {
       const existingTokens = getTokens();
       if (existingTokens && existingTokens.refresh) {
         if (isExpired(getExpirationDate(existingTokens.refresh))) {
-          logout();
+          setIsAuthenticated(false);
+          setTokens({});
+          setUser(null);
         } else {
           setIsAuthenticated(true);
           setAuthTokens(existingTokens);
@@ -67,6 +73,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const requestOTP = async (number) => {
+    setError(null);
     setLoading(true);
     const form = new FormData();
     form.append('phone', number);
@@ -74,16 +81,27 @@ export const AuthProvider = ({ children }) => {
       const resp = await axios.post(auth.sendOTPUrl, form)
       setLoading(false);
       if (resp.status === 200) {
+        if (resp.data.message.indexOf('maximum attempt') > -1) {
+          // maximum attempts reached
+          setError(resp.data.message)
+          setLoading(false);
+          return null;
+        }
         return resp.data;
       }
     } catch (e) {
-      console.log({requestOTPError: e});
+      if (e.response.status === 500) {
+        setError('Phone number is not registered with profcon.in')
+      } else {
+        setError('Unknown error occured, please refresh and try again!')
+      }
     }
-    
+    setLoading(false);
     return null;
   }
 
   const verifyOTP = (number, otp) => {
+    setError(null);
     setLoading(true);
     const form = new FormData();
     form.append('phone', number);
@@ -91,10 +109,21 @@ export const AuthProvider = ({ children }) => {
     axios.post(auth.verifyOTPUrl, form).then(
       result => {
         if (result.status === 200) {
-          setTokens(result.data.data);
-          setIsAuthenticated(true);
-          setError(null);
-          setUser(getName(result.data.data.access));
+          if (result.data.status === 6001) {
+            setError('Invalid OTP, please check and try again!')
+            setLoading(false)
+            return;
+          }
+          if (result.data.status === 6000 && result.data.data) {
+            setTokens(result.data.data);
+            setIsAuthenticated(true);
+            setError(null);
+            setUser(getName(result.data.data.access));
+          } else {
+            setError('Unknown error, please refresh and try again');
+            setLoading(false);
+            return;
+          } 
         } else if (result.status === 401) {
           setIsAuthenticated(false);
           setError(result.data && result.data.message);
@@ -105,7 +134,7 @@ export const AuthProvider = ({ children }) => {
       e => {
         console.log({verifyOTPError: e});
         setIsAuthenticated(false);
-        setError('unknown error, please refresh and try again');
+        setError('Unknown error, please refresh and try again');
         setLoading(false);
       }
     )
