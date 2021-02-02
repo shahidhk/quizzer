@@ -30,16 +30,16 @@ const Header = () => {
         </Nav>
         <Nav>
           <>
+            <Nav.Link href="https://profcon.in">Profcon</Nav.Link>
+          
             <LinkContainer to="/">
-              <Nav.Link>Home</Nav.Link>
+              <Nav.Link>Qberry Home</Nav.Link>
             </LinkContainer>
+            
             { isAuthenticated ? 
               <Button variant="info" size="sm" onClick={logout}>Logout ({user}) </Button> : 
               <Button variant="info" size="sm" >Login</Button>}
-            {/* <LinkContainer to="/profile">
-              <Nav.Link>Profile</Nav.Link>
-            </LinkContainer> */}
-            {/* <NewSession /> */}
+            
           </>
         </Nav>
       </Navbar.Collapse>

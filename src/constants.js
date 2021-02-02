@@ -23,7 +23,7 @@ export const brand = {
   neutral_text: `Winners will be announced later`,
   fail_text: 'Try later',
   win_text: `You won!`,
-  sorry_text: `Sorry, there are no quizzes live right now. Check back later!`,
+  sorry_text: `Sorry, there are no quizzes live right now. Quizzes are live from 8am to 11pm on Wednesdays and Saturdays!`,
 };
 
 export const auth = {
