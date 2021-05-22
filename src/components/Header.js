@@ -18,15 +18,7 @@ const Header = () => {
           alt="LilBerry logo"
         />
       </Navbar.Brand>
-      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-      <Navbar.Collapse id="responsive-navbar-nav">
-        <Nav className="mr-auto">
-        </Nav>
-        <Nav>
-          <>
-          </>
-        </Nav>
-      </Navbar.Collapse>
+      
     </Navbar>
   );
 }
