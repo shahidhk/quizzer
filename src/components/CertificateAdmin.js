@@ -14,16 +14,21 @@ const CertificateAdmin = () => {
   const submitBtnRef = useRef()
 
   const imgProps = {
-    winner: {
-      url: '/quran_quiz_certificate.jpg',
-      x: 0.35,
-      y: 0.57
-    },
-    participation: {
-      url: '/quran_quiz_participation_certificate.jpg',
+    second_class: {
+      url: '/cert_1_29.jpg',
       x: 0.5,
-      y: 0.53
-    }
+      y: 0.61
+    },
+    first_class: {
+      url: '/cert_30_39.jpg',
+      x: 0.5,
+      y: 0.61
+    },
+    distinction: {
+      url: '/cert_40_50.jpg',
+      x: 0.5,
+      y: 0.61
+    },
   }
 
   const getCertificate = (e) => {
@@ -45,11 +50,11 @@ const CertificateAdmin = () => {
         context.fillStyle = "black";
         context.textBaseline = 'middle';
         context.textAlign = 'center';
-        context.font = '35pt Elmessiri, "Times New Roman", Times, serif';
+        context.font = '25pt Elmessiri, "Times New Roman", Times, serif';
         context.fillText(name, canvas.width * imgProps[ct].x , canvas.height * imgProps[ct].y);
 
         downloadBtnRef.current.href = canvas.toDataURL("image/jpeg");
-        downloadBtnRef.current.download = `Quran Time ${ct} certificate ${name}.jpg`;
+        downloadBtnRef.current.download = `QVP ${ct} certificate ${name}.jpg`;
         downloadBtnRef.current.innerHTML = 'Download Certificate';
       };
       img.src = imgProps[ct].url;
@@ -63,7 +68,7 @@ const CertificateAdmin = () => {
     <Container fluid>
       <Row className="customCenter fullHeight">
         <Col sm={12} lg={5} >
-          <h2>Quran Time Quiz Certificate Admin</h2>
+          <h2>QVP Certificate Admin</h2>
           <br/>
           <Form onSubmit={getCertificate}>
             <Form.Group as={Row} controlId="formPlaintextPass">
@@ -78,9 +83,10 @@ const CertificateAdmin = () => {
             <Form.Group as={Row} controlId="formGridType">
               <Form.Label column sm="3">Type</Form.Label>
               <Col sm="9">
-                <Form.Control ref={typeRef} required name="type" defaultValue="participation" as="select">
-                  <option key={0} value="participation">Participation</option>
-                  <option key={0} value="winner">Winner</option>
+                <Form.Control ref={typeRef} required name="type" defaultValue="second_class" as="select">
+                  <option key={0} value="first_class">First Class</option>
+                  <option key={1} value="second_class">Second Class</option>
+                  <option key={2} value="distinction">Distinction</option>
                 </Form.Control>
               </Col>
             </Form.Group>
