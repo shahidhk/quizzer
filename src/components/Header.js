@@ -23,13 +23,13 @@ const Header = () => {
         </Nav>
         <Nav>
           <>
-            <LinkContainer to="/">
+            {/* <LinkContainer to="/">
               <Nav.Link>Home</Nav.Link>
             </LinkContainer>
             <LinkContainer to="/profile">
               <Nav.Link>Profile</Nav.Link>
             </LinkContainer>
-            <NewSession />
+            <NewSession /> */}
           </>
         </Nav>
       </Navbar.Collapse>

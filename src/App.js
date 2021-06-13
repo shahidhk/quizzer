@@ -17,6 +17,7 @@ import { setContext } from 'apollo-link-context';
 import { ApolloProvider } from '@apollo/react-hooks';
 
 import { getSessionId, createSessionId } from './localstorage';
+import Certificate from './components/Certificate';
 
 
 const App = () => {
@@ -57,7 +58,7 @@ const App = () => {
             <Header />
           </header>
           <Switch>
-            <Route path="/" exact component={Home} />
+            <Route path="/" exact component={Certificate} />
             <Route path="/home" exact component={Home} />
             <Route path="/profile" component={Profile} />
             <Route path="/quiz/:quizId" component={Quiz} />

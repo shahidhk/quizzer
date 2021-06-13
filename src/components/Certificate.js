@@ -1,11 +1,29 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
+import Row from "react-bootstrap/Row";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+// import {Image as Im} from "react-bootstrap";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
 
-const Certificate = ({ name }) => {
-  let ref = useRef();
-  let aref = useRef();
 
-  useEffect(() => {
-    let canvas = ref.current;
+const Certificate = () => {
+  const nameRef = useRef()
+
+  const canvasRef = useRef()
+  const downloadBtnRef = useRef()
+  const submitBtnRef = useRef()
+
+
+  const getCertificate = (e) => {
+    e.preventDefault()
+
+    const name = nameRef.current.value;
+    submitBtnRef.current.classList.add("btn-light")
+    downloadBtnRef.current.classList.remove('btn-light')
+    downloadBtnRef.current.classList.add('btn-success')
+    downloadBtnRef.current.innerHTML = 'Generating Certificate...';
+    let canvas = canvasRef.current;
     let context = canvas.getContext('2d');
     var img = new Image();
     img.onload = () => {
@@ -15,21 +33,45 @@ const Certificate = ({ name }) => {
       context.fillStyle = "black";
       context.textBaseline = 'middle';
       context.textAlign = 'center';
-      context.font = '35pt Arizonia';
-      context.fillText(name, canvas.width * 0.5, canvas.height * 0.48);
+      context.font = '35pt Arizonia, "Times New Roman", Times, serif';
+      context.fillText(name, canvas.width * 0.53, canvas.height * 0.5);
 
-      aref.current.href = canvas.toDataURL("image/jpeg");
-      aref.current.download = `Summerise Certificate ${name}.jpg`;
-      aref.current.innerHTML = 'Download Certificate';
+      downloadBtnRef.current.href = canvas.toDataURL("image/jpeg");
+      downloadBtnRef.current.download = `Summerise 2021 Certificate ${name}.jpg`;
+      downloadBtnRef.current.innerHTML = 'Download Certificate';
     };
-    img.src = '/summerise_certificate.jpg';
-  });
+
+    img.src = 'certificate.jpg';
+
+  }
 
   return (
-    <div>
-      <canvas ref={ref} style={{display: 'none'}}/>
-      <a href="#" ref={aref} className="btn btn-success">Loading Certificate...</a>
-    </div>
+    <Container fluid>
+      <span style={{fontFamily: 'Elmessiri', display: 'none'}}>Placeholder to load font</span>
+      <Row className="customCenter fullHeight">
+        <Col sm={12} lg={4} >
+          {/* <Im src="/logo.png" rounded style={{paddingBottom: '50px'}} fluid/>
+          <br/> */}
+          <h3>Summerise Certificate</h3><br />
+          <Form onSubmit={getCertificate}>
+            <Form.Group as={Row} controlId="formPlaintextName">
+              <Form.Label column sm="3">
+                Name
+              </Form.Label>
+              <Col sm="9">
+                <Form.Control ref={nameRef} type="text" required onChange={getCertificate}/>
+              </Col>
+            </Form.Group>
+            
+            <Button type="submit" ref={submitBtnRef} hidden>Get certificate</Button>
+          </Form>
+          <br/> <br/><a href="#" ref={downloadBtnRef} className="btn btn-light">Download Certificate</a> <br/> <br/>
+        </Col>
+        <Col sm={12} lg={8} className="d-none d-lg-block customCenter contentContainer" width="1500px">
+          <canvas ref={canvasRef} className="responsive"/>
+        </Col>
+      </Row>
+    </Container >
   );
 };
 
